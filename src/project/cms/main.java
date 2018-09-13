@@ -1,5 +1,5 @@
 
-package project.cms.main;
+package project.cms;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
