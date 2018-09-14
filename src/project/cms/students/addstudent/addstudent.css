@@ -1,0 +1,19 @@
+.header{
+    -fx-background-color:#501787;
+    -fx-text-fill:white;
+}
+
+.combo-box {
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-text-fill:aquamarine;
+}
+#addstudentbtn{
+    -fx-border-radius:20%;
+    -fx-background-color:green;
+    -fx-text-fill:white;
+}
+#cancelbtn{
+    -fx-border-radius:20%;
+    -fx-background-color:orange;
+    -fx-text-fill:white;
+}
