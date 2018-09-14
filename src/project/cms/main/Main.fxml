@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="186.0" prefWidth="359.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="project.cms.main.MainController">
+   <children>
+      <Label layoutX="49.0" layoutY="40.0" text="username" />
+      <TextField fx:id="user" layoutX="122.0" layoutY="35.0" />
+      <Label layoutX="49.0" layoutY="80.0" text="password" />
+      <PasswordField fx:id="password" layoutX="121.0" layoutY="75.0" />
+      <Button fx:id="loginbtn" layoutX="49.0" layoutY="117.0" mnemonicParsing="false" onAction="#loginclicked" text="Login" />
+      <TextField fx:id="msg" editable="false" layoutX="121.0" layoutY="117.0" prefHeight="25.0" prefWidth="142.0" />
+      <Label fx:id="clear" layoutX="274.0" layoutY="122.0" />
+   </children>
+</AnchorPane>
