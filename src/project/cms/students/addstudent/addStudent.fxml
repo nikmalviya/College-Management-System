@@ -13,7 +13,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="567.0" prefWidth="779.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.cms.students.addstudent.AddStudentController">
+<AnchorPane id="AnchorPane" prefHeight="567.0" prefWidth="779.0" style="-fx-background-color: white;" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.cms.students.addstudent.AddStudentController">
     <stylesheets>
         <URL value="@addstudent.css" />
     </stylesheets>
@@ -43,7 +43,7 @@
                   <Insets bottom="10.0" left="20.0" right="20.0" />
                </VBox.margin>
                <children>
-                  <JFXTextField labelFloat="true" promptText="Last Name" GridPane.columnIndex="1">
+                  <JFXTextField focusColor="#501787" labelFloat="true" promptText="Last Name" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
@@ -53,7 +53,7 @@
                      <font>
                         <Font name="Shure Tech Mono Nerd Font Complete" size="15.0" />
                      </font></JFXTextField>
-                  <JFXTextField labelFloat="true" promptText="First Name">
+                  <JFXTextField focusColor="#501787" labelFloat="true" promptText="First Name">
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
@@ -63,7 +63,7 @@
                      <font>
                         <Font name="Shure Tech Mono Nerd Font Complete" size="15.0" />
                      </font></JFXTextField>
-                  <JFXTextField labelFloat="true" promptText="Father's Name" GridPane.rowIndex="1">
+                  <JFXTextField focusColor="#501787" labelFloat="true" promptText="Father's Name" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
@@ -73,7 +73,7 @@
                      <font>
                         <Font name="Shure Tech Mono Nerd Font Complete" size="15.0" />
                      </font></JFXTextField>
-                  <JFXTextField labelFloat="true" promptText="Mother's Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField focusColor="#501787" labelFloat="true" promptText="Mother's Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
@@ -83,14 +83,14 @@
                      <font>
                         <Font name="Shure Tech Mono Nerd Font Complete" size="15.0" />
                      </font></JFXTextField>
-                  <JFXComboBox prefHeight="25.0" prefWidth="328.0" promptText="Father's Qualification" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <JFXComboBox editable="true" focusColor="#501787" labelFloat="true" prefHeight="25.0" prefWidth="328.0" promptText="Father's Qualification" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding></JFXComboBox>
-                  <JFXComboBox layoutX="337.0" layoutY="68.0" prefHeight="25.0" prefWidth="328.0" promptText="Father's Occupation" style="-fx-font-family: ShureTechMono Nerd Font;" GridPane.rowIndex="2">
+                  <JFXComboBox editable="true" focusColor="#501787" labelFloat="true" layoutX="337.0" layoutY="68.0" prefHeight="47.0" prefWidth="338.0" promptText="Father's Occupation" stylesheets="@addstudent.css" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
@@ -171,7 +171,7 @@
                   </JFXTextField>
                   <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <DatePicker prefHeight="25.0" prefWidth="312.0" promptText="Birthdate" showWeekNumbers="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <DatePicker prefHeight="50.0" prefWidth="291.0" promptText="Birthdate" showWeekNumbers="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" top="15.0" />
                            </VBox.margin>
@@ -191,7 +191,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                      <children>
-                        <JFXComboBox prefHeight="25.0" prefWidth="310.0" promptText="Course" stylesheets="@addstudent.css">
+                        <JFXComboBox editable="true" focusColor="#501787" labelFloat="true" prefHeight="25.0" prefWidth="310.0" promptText="Course" stylesheets="@addstudent.css">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -202,7 +202,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </JFXComboBox>
-                        <JFXComboBox layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="310.0" promptText="Semester">
+                        <JFXComboBox editable="true" focusColor="#501787" labelFloat="true" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="310.0" promptText="Semester">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -213,7 +213,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </JFXComboBox>
-                        <JFXComboBox layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="310.0" promptText="Class ">
+                        <JFXComboBox editable="true" focusColor="#501787" labelFloat="true" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="310.0" promptText="Class ">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -246,15 +246,24 @@
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </JFXButton>
                               <JFXButton fx:id="cancelbtn" layoutX="187.0" layoutY="147.0" prefHeight="45.0" prefWidth="148.0" text="Cancel">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </JFXButton>
                            </children>
                         </HBox>
-                        <JFXButton layoutX="114.0" layoutY="115.0" prefHeight="25.0" prefWidth="92.0" text="Choose" />
+                        <JFXButton layoutX="114.0" layoutY="115.0" prefHeight="25.0" prefWidth="92.0" text="Choose">
+                           <font>
+                              <Font name="Shure Tech Mono Nerd Font Complete" size="16.0" />
+                           </font></JFXButton>
                      </children>
                   </AnchorPane>
                </children>

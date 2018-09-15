@@ -1,11 +1,26 @@
+.anchor-pane{
+    -fx-background-color: white;
+    -fx-background-radius:15;
+    -fx-border-style:solid;
+    -fx-border-width: 2px;
+    -fx-background-size: 100%;
+    -fx-border-radius:10;
+    -fx-effect:  dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
 .header{
     -fx-background-color:#501787;
     -fx-text-fill:white;
 }
-
+.jfx-button{
+    -fx-font-family: 'ShureTechMono Nerd Font';
+    -fx-font-size:17px;
+}
+.date-picker{
+    -fx-font-family: 'ShureTechMono Nerd Font';
+}
 .combo-box {
-    -fx-background-radius: 5, 5, 4, 3;
-    -fx-text-fill:aquamarine;
+      -fx-font-family: 'ShureTechMono Nerd Font';
+      -fx-font-size:15px;
 }
 #addstudentbtn{
     -fx-border-radius:20%;
