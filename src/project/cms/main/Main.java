@@ -14,7 +14,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("/project/cms/dashboard/DashBoard.fxml"));
-        stage.setMaximized(true);
+        stage.setMaximized(true);       
         stage.setTitle("College Management System");
         stage.setScene(new Scene(root));
         stage.show();
