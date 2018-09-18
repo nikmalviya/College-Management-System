@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
@@ -28,8 +27,7 @@ import javafx.stage.Stage;
  *
  * @author programmer
  */
-public class AddStudentController implements Initializable {
-
+public class AddStudentController implements Initializable { 
     @FXML
     private JFXButton addstudentbtn;
     @FXML
@@ -91,10 +89,10 @@ public class AddStudentController implements Initializable {
     }
     private void closeWindow(ActionEvent e){
         Stage s = (Stage)(cancelbtn.getScene().getWindow());
-            s.close();
+        s.close();
     }
     private void addStudentToDatabase(ActionEvent e){
-        System.out.println("Hello World my name is Nikhil Malviya");
+        
     }
     
 }

@@ -1,10 +1,27 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-   
+*{
+    -fx-primary:#501787;
+    -fx-secondary:#8145b8;
+    -fx-dark:#1d0059;
 }
-.vbox{
-    -fx-background-color: #a06d4e;
+.side-pane{
+    -fx-background-color: -fx-primary;
+}
+.side-pane .label{
+    -fx-text-fill: white;
+    -fx-font-size:24px;
+    -fx-font-family:'ShureTechMono Nerd Font';
+}
+.side-pane .jfx-button{
+    -fx-font-size:18px;
+    -fx-text-fill: white;
+    -fx-background-color: #501787;
+    -fx-border-width:0 0 0 10;
+    -fx-border-color:-fx-primary;
+    -fx-font-family:'ShureTechMono Nerd Font';
+}
+.side-pane .jfx-button:hover{
+    -fx-border-style: solid;
+    -fx-border-width:0 0 0 10;
+    -fx-border-color: -fx-dark;
+    -fx-background-color: -fx-secondary;
 }
