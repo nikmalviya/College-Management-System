@@ -7,9 +7,9 @@ public class Database {
 
     private static Connection con;
     private static Database instance;
-    private static String hostName;
-    private static String userName;
-    private static String password;
+    private static final String HOST_NAME="localhost";
+    private static final String USER_NAME="root";
+    private static final String PASSWORD="";
     public static ResultSet executeQuery(String sql) throws SQLException {
         Statement stmt = con.createStatement();
         ResultSet res = stmt.executeQuery(sql);
@@ -32,7 +32,7 @@ public class Database {
 
     public static void init() {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://" + hostName + ":3306?useSSL=true&requireSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", userName, password);
+            con = DriverManager.getConnection("jdbc:mysql://" + HOST_NAME + ":3306?useSSL=true&requireSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", USER_NAME, PASSWORD);
         } catch (SQLException ex) {
             Alert al = new Alert(Alert.AlertType.ERROR, ex.getMessage());
             al.setHeaderText(String.valueOf(ex.getErrorCode()));
