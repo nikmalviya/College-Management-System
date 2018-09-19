@@ -21,7 +21,7 @@
         <URL value="@dashboard.css" />
     </stylesheets>
    <children>
-      <AnchorPane layoutY="113.0" prefHeight="200.0" prefWidth="200.0" styleClass="side-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1140.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutY="113.0" prefHeight="768.0" prefWidth="225.0" styleClass="side-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Dashboard" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="30.0">
                <graphic>
@@ -36,7 +36,7 @@
                <children>
                   <VBox layoutX="-4.099999904632568" layoutY="6.900000095367432" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <JFXButton contentDisplay="TOP" prefHeight="40.0" prefWidth="225.0" text="Home">
+                        <JFXButton fx:id="home" contentDisplay="TOP" prefHeight="40.0" prefWidth="225.0" text="Home">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -51,9 +51,9 @@
                               <Insets left="-10.0" top="10.0" />
                            </padding>
                         </JFXButton>
-                        <JFXButton contentDisplay="TOP" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0" text="Student">
+                        <JFXButton fx:id="student" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0" text="Student">
                            <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView  fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/student.png" />
                                  </image>
@@ -76,6 +76,6 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="244.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane layoutX="244.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
    </children>
 </AnchorPane>
