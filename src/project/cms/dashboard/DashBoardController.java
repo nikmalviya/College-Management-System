@@ -6,15 +6,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class DashBoardController {
-    @FXML
     ResourceBundle resourses;
-    @FXML
     URL location;
     @FXML
     private AnchorPane root;
@@ -22,13 +18,25 @@ public class DashBoardController {
     private JFXButton home;
     @FXML
     private JFXButton student;
+    @FXML
+    private AnchorPane contentNode;
     public void initialize() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/project/cms/students/studentsview.fxml"));
-        Stage addStudent = new Stage();
-        addStudent.setScene(new Scene(pane));
-        addStudent.showAndWait();
-        
-        
-    }    
+        student.setOnMouseClicked(this::openStudentsView);
+    }
+    private void openStudentsView(MouseEvent e){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/studentsview.fxml"));
+        AnchorPane node=null;
+        try {
+            node = loader.load();
+        } catch (IOException ex) {
+            System.out.println("Cannot Load Students View");
+        }
+        AnchorPane.setBottomAnchor(node,0d);
+        AnchorPane.setTopAnchor(node,0d);
+        AnchorPane.setLeftAnchor(node,0d);
+        AnchorPane.setRightAnchor(node,0d);
+        contentNode.getChildren().clear();
+        contentNode.getChildren().add(node);
+    }
     
 }

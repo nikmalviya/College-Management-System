@@ -10,24 +10,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="718.0" prefWidth="1141.0" styleClass="anchor-pane" stylesheets="@studentsview.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.cms.students.addstudent.StudentsViewController">
+<AnchorPane fx:id="rootNode" prefHeight="718.0" prefWidth="1141.0" styleClass="anchor-pane" stylesheets="@studentsview.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.cms.students.StudentsViewController">
    <children>
-      <Label layoutX="62.0" layoutY="50.0" prefHeight="51.0" prefWidth="227.0" styleClass="heading" text="Students" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="40.0" />
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="494.0" prefWidth="834.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+      <Label layoutX="62.0" layoutY="50.0" prefHeight="51.0" prefWidth="227.0" styleClass="heading" text="Students" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="20.0" />
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="494.0" prefWidth="834.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="80.0">
          <children>
             <BorderPane layoutX="220.0" layoutY="140.0" prefHeight="479.0" prefWidth="639.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <bottom>
                   <HBox alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="944.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton layoutX="839.0" layoutY="28.0" text="Add Student" />
-                        <JFXButton layoutX="740.0" layoutY="28.0" text="Add Multiple Students">
+                        <JFXButton fx:id="addStudentButton" layoutX="839.0" layoutY="28.0" text="Add Student" />
+                        <JFXButton fx:id="addMultipleStudentButton" layoutX="740.0" layoutY="28.0" text="Add Multiple Students">
                            <HBox.margin>
-                              <Insets right="325.0" />
+                              <Insets right="350.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton text="Add New" />
-                        <JFXButton layoutX="802.0" layoutY="31.0" text="Update" />
-                        <JFXButton layoutX="720.0" layoutY="31.0" text="Delete" />
+                        <JFXButton fx:id="viewButton" text="View" />
+                        <JFXButton fx:id="updateButton" layoutX="802.0" layoutY="31.0" text="Update" />
+                        <JFXButton fx:id="deleteButton" layoutX="720.0" layoutY="31.0" text="Delete" />
                      </children>
                      <BorderPane.margin>
                         <Insets right="20.0" />
@@ -44,9 +44,9 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="944.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <ComboBox fx:id="cbSoteViewSupplyer" prefWidth="150.0" promptText="Course" />
-                                    <ComboBox fx:id="cbSoteViewBrands" prefWidth="150.0" promptText="Semester" />
-                                    <ComboBox fx:id="cbSoteViewCatagory" prefWidth="150.0" promptText="Class" />
+                                    <ComboBox fx:id="courseComboBox" prefWidth="150.0" promptText="Course" />
+                                    <ComboBox fx:id="semesterComboBox" prefWidth="150.0" promptText="Semester" />
+                                    <ComboBox fx:id="classComboBox" prefWidth="150.0" promptText="Class" />
                                  </children>
                               </HBox>
                            </children>
@@ -55,29 +55,28 @@
                      <top>
                         <HBox alignment="CENTER" prefHeight="44.0" prefWidth="944.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="tfSearch" prefHeight="31.0" prefWidth="608.0" />
-                              <JFXButton text="  " />
+                              <TextField fx:id="searchTextField" prefHeight="31.0" prefWidth="608.0" />
+                              <JFXButton fx:id="refreshButton" text="  " />
                            </children>
                         </HBox>
                      </top>
                   </BorderPane>
                </top>
                <center>
-                  <TableView  editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: none;" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+                  <TableView fx:id="studentsTableView" editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: none;" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                      <columns>
-                        <TableColumn fx:id="tblClmProductId" minWidth="20.0" prefWidth="100.0" text="Student ID" />
-                        <TableColumn minWidth="20.0" prefWidth="100.0" text="Full Name" />
-                        <TableColumn fx:id="tblClmProductquantity" minWidth="20.0" prefWidth="100.0" text="Contact No." />
-                        <TableColumn fx:id="tblClmProductUnit" minWidth="20.0" prefWidth="100.0" text="Email" />
-                        <TableColumn fx:id="tblClmProductRMA" minWidth="20.0" prefWidth="100.0" text="Course" />
-                        <TableColumn fx:id="tblClmProductSupplyer" minWidth="20.0" prefWidth="100.0" text="Semester" />
-                        <TableColumn minWidth="20.0" prefWidth="100.0" text="Class" />
-                        <TableColumn fx:id="tblClmProductCatagory" minWidth="20.0" prefWidth="100.0" text="Gender" />
-                        <TableColumn fx:id="tblClmProductPursesPrice" minWidth="20.0" prefWidth="100.0" text="Father's Name" />
-                        <TableColumn fx:id="tblClmProductSellPrice" minWidth="20.0" prefWidth="100.0" text="Mother's Name" />
-                        <TableColumn fx:id="tblClmProductdate" minWidth="20.0" prefWidth="100.0" text="Birth Date" />
-                        <TableColumn fx:id="tblClmProductAddBy" minWidth="20.0" prefWidth="100.0" text="Address" />
-                        <TableColumn fx:id="tblClmProductdescription" minWidth="20.0" prefWidth="100.0" text="Description" />
+                        <TableColumn fx:id="studentIdColumn" minWidth="20.0" prefWidth="100.0" text="Student ID" />
+                        <TableColumn fx:id="fullNameColumn" minWidth="20.0" prefWidth="100.0" text="Full Name" />
+                        <TableColumn fx:id="contactNoColoumn" minWidth="20.0" prefWidth="100.0" text="Contact No." />
+                        <TableColumn fx:id="emailColumn" minWidth="20.0" prefWidth="100.0" text="Email" />
+                        <TableColumn fx:id="courseColumn" minWidth="20.0" prefWidth="100.0" text="Course" />
+                        <TableColumn fx:id="semesterColumn" minWidth="20.0" prefWidth="100.0" text="Semester" />
+                        <TableColumn fx:id="classColumn" minWidth="20.0" prefWidth="100.0" text="Class" />
+                        <TableColumn fx:id="genderColumn" minWidth="20.0" prefWidth="100.0" text="Gender" />
+                        <TableColumn fx:id="fatherNameColumn" minWidth="20.0" prefWidth="100.0" text="Father's Name" />
+                        <TableColumn fx:id="motherNameColumn" minWidth="20.0" prefWidth="100.0" text="Mother's Name" />
+                        <TableColumn fx:id="birthDateColumn" minWidth="20.0" prefWidth="100.0" text="Birth Date" />
+                        <TableColumn fx:id="addressColumn" minWidth="20.0" prefWidth="100.0" text="Address" />
                      </columns>
                   </TableView>
                </center>
