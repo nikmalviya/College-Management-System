@@ -6,10 +6,14 @@ import javafx.scene.control.Alert;
 public class Database {
 
     private static Connection con;
+
     private static Database instance;
     private static final String HOST_NAME="localhost";
     private static final String USER_NAME="root";
     private static final String PASSWORD="";
+    public static Connection getConnection() {
+        return con;
+    }
     public static ResultSet executeQuery(String sql) throws SQLException {
         Statement stmt = con.createStatement();
         ResultSet res = stmt.executeQuery(sql);

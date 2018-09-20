@@ -1,5 +1,6 @@
 package project.cms.classes;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -11,8 +12,11 @@ public class Student {
     private String lastName;
     private String fathersName;
     private String mothersName;
+    private String address;
     private String gender;
-    private Date birthDate;
+    private String city;
+    private String state;
+    private LocalDate birthDate;
     private String email;
     private String contactNumber;
     private String course;
@@ -48,6 +52,30 @@ public class Student {
         return mothersName;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+    
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public void setMothersName(String mothersName) {
         this.mothersName = mothersName;
     }
@@ -60,11 +88,11 @@ public class Student {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -116,7 +144,7 @@ public class Student {
         this.fees = fees;
     }
     public static class StudentBuilder{
-        private Student student;
+        private final Student student = new Student();
 
         public StudentBuilder setFirstName(String firstName) {
             student.setFirstName(firstName);
@@ -143,7 +171,7 @@ public class Student {
             return this;
         }
 
-        public StudentBuilder setBirthDate(Date birthDate) {
+        public StudentBuilder setBirthDate(LocalDate birthDate) {
             student.setBirthDate(birthDate);
             return this;
         }
@@ -152,7 +180,18 @@ public class Student {
             student.setEmail(email);
             return this;
         }
-
+        public StudentBuilder setAddress(String address) {
+            student.setAddress(address);
+            return this;
+        }
+        public StudentBuilder setCity(String city) {
+            student.setCity(city);
+            return this;
+        }
+        public StudentBuilder setState(String state) {
+            student.setState(state);
+            return this;
+        }
         public StudentBuilder setContactNumber(String contactNumber) {
             student.setContactNumber(contactNumber);
             return this;

@@ -8,7 +8,10 @@ package project.cms.students;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,10 +20,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import project.cms.classes.Student;
+import project.cms.classes.StudentRepository;
 
 /**
  * FXML Controller class
@@ -82,7 +87,25 @@ public class StudentsViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        fatherNameColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        try {
+            studentsTableView.itemsProperty().bind(new StudentRepository().studentsProperty());
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         addStudentButton.setOnMouseClicked(this::openAddStudentWindow);
+        try {
+            studentsTableView.itemsProperty().bind(new StudentRepository().studentsProperty());
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     private void openAddStudentWindow(MouseEvent e){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/addstudent/addStudent.fxml"));
@@ -96,4 +119,8 @@ public class StudentsViewController implements Initializable {
         stage.setScene(new Scene(node));
         stage.show();
     }
+    public void method() {
+        
+    }
+    
 }

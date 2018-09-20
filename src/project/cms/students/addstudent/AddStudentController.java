@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +22,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import project.cms.classes.Student;
+import project.cms.classes.StudentRepository;
 
 /**
  * FXML Controller class
@@ -74,6 +77,7 @@ public class AddStudentController implements Initializable {
     private Circle profilephoto;
     @FXML
     private JFXButton choosebtn;
+    private final ToggleGroup gender = new ToggleGroup();
     /**
      * Initializes the controller class.
      * @param url
@@ -81,9 +85,11 @@ public class AddStudentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ToggleGroup genderGroup = new ToggleGroup();
-        genderGroup.getToggles().addAll(maleRadio,femaleRadio,otherRadio);
-        genderGroup.selectToggle(maleRadio);
+        maleRadio.setUserData("male");
+        femaleRadio.setUserData("female");
+        otherRadio.setUserData("other");
+        gender.getToggles().addAll(maleRadio,femaleRadio,otherRadio);
+        gender.selectToggle(maleRadio);
         addstudentbtn.setOnAction(this::addStudentToDatabase);
         cancelbtn.setOnAction(this::closeWindow);
     }
@@ -92,6 +98,28 @@ public class AddStudentController implements Initializable {
         s.close();
     }
     private void addStudentToDatabase(ActionEvent e){
+        Student.StudentBuilder builder = new Student.StudentBuilder();
+        Student student = builder.setFirstName(firstName.getText().trim())
+                                    .setLastName(lastName.getText().trim())
+                                    .setFathersName(fathersName.getText().trim())
+                                    .setMothersName(MothersName.getText().trim())
+                                    .setAddress(address.getText().trim())
+                                    .setCity(city.getText().trim())
+                                    .setState(state.getText().trim())
+                                    .setGender(gender.getSelectedToggle().getUserData().toString())
+                                    .setBirthDate(birthDate.getValue())
+                                    .setContactNumber(contactNumber.getText().trim())
+                                    .setEmail(email.getText())
+                                    .setCourse(course.getValue())
+                                    .setSemester(semester.getValue())
+                                    .setClass(Class.getValue())
+                                    .build();
+        try {
+            new StudentRepository().addNewStudent(student);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
         
     }
     
