@@ -16,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -61,7 +63,7 @@ public class StudentsViewController implements Initializable {
     @FXML
     private TableView<Student> studentsTableView;
     @FXML
-    private TableColumn<Student,String> studentIdColumn;
+    private TableColumn<Student,Integer> studentIdColumn;
     @FXML
     private TableColumn<Student,String> fullNameColumn;
     @FXML
@@ -84,29 +86,27 @@ public class StudentsViewController implements Initializable {
     private TableColumn<Student,String> birthDateColumn;
     @FXML
     private TableColumn<Student,String> addressColumn;
-
+    @FXML
+    private TableColumn<Student,String> cityColumn;
+    @FXML
+    private TableColumn<Student,String> stateColumn;
+    private static StudentRepository students;
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        fatherNameColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+    public void initialize(URL url, ResourceBundle rb){
+        updateButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
+        viewButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
+        deleteButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
         try {
-            studentsTableView.itemsProperty().bind(new StudentRepository().studentsProperty());
+            students = StudentRepository.getStudentRepository();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        initTableCellValueFactory();
         addStudentButton.setOnMouseClicked(this::openAddStudentWindow);
-        try {
-            studentsTableView.itemsProperty().bind(new StudentRepository().studentsProperty());
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }    
+        deleteButton.setOnMouseClicked(this::deleteStudent);
+        studentsTableView.getItems().clear();
+        studentsTableView.itemsProperty().set(students.getStudents());
+    }
     private void openAddStudentWindow(MouseEvent e){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/addstudent/addStudent.fxml"));
         AnchorPane node=null;
@@ -119,8 +119,36 @@ public class StudentsViewController implements Initializable {
         stage.setScene(new Scene(node));
         stage.show();
     }
-    public void method() {
+    private void initTableCellValueFactory() {
+        studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        contactNoColoumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+        courseColumn.setCellValueFactory(new PropertyValueFactory<>("course"));
+        semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semester"));
+        classColumn.setCellValueFactory(new PropertyValueFactory<>("classs"));
+        fatherNameColumn.setCellValueFactory(new PropertyValueFactory<>("fathersName"));
+        motherNameColumn.setCellValueFactory(new PropertyValueFactory<>("mothersName"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
+        stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
+    }
+    private void deleteStudent(MouseEvent e){
+        Student s = studentsTableView.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Dou you Really Want To Delete?");
+        alert.showAndWait();
+        ButtonType result = alert.getResult();
+        if(result == ButtonType.OK){
+            students.getStudents().remove(s);
+            try {
+                students.deleteStudent(s);
+            } catch (SQLException ex) {
+                System.out.println("Cannot Delete this Student");
+            }
+            
+        }
         
     }
-    
 }

@@ -112,10 +112,10 @@ public class AddStudentController implements Initializable {
                                     .setEmail(email.getText())
                                     .setCourse(course.getValue())
                                     .setSemester(semester.getValue())
-                                    .setClass(Class.getValue())
+                                    .setClasss(Class.getValue())
                                     .build();
         try {
-            new StudentRepository().addNewStudent(student);
+            StudentRepository.getStudentRepository().addNewStudent(student);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

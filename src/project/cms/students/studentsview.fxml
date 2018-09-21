@@ -77,6 +77,8 @@
                         <TableColumn fx:id="motherNameColumn" minWidth="20.0" prefWidth="100.0" text="Mother's Name" />
                         <TableColumn fx:id="birthDateColumn" minWidth="20.0" prefWidth="100.0" text="Birth Date" />
                         <TableColumn fx:id="addressColumn" minWidth="20.0" prefWidth="100.0" text="Address" />
+                        <TableColumn fx:id="cityColumn" minWidth="20.0" prefWidth="100.0" text="City" />
+                        <TableColumn fx:id="stateColumn" minWidth="20.0" prefWidth="100.0" text="State" />
                      </columns>
                   </TableView>
                </center>

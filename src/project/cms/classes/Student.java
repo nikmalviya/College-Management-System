@@ -1,151 +1,173 @@
 package project.cms.classes;
 
+import java.net.BindException;
 import java.time.LocalDate;
-import java.util.Date;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.binding.StringExpression;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * @author programmer
  * Nikhil Malviya
  */
 public class Student {
-    private String firstName;
-    private String lastName;
-    private String fathersName;
-    private String mothersName;
-    private String address;
-    private String gender;
-    private String city;
-    private String state;
-    private LocalDate birthDate;
-    private String email;
-    private String contactNumber;
-    private String course;
-    private String semester;
-    private String Class;
-    private String fees;
+    private final IntegerProperty id = new SimpleIntegerProperty();
+    private final StringProperty firstName = new SimpleStringProperty();
+    private final StringProperty lastName= new SimpleStringProperty();
+    private final StringExpression fullName = Bindings.concat(firstName," ",lastName);
+    private final StringProperty fathersName= new SimpleStringProperty();
+    private final StringProperty mothersName= new SimpleStringProperty();
+    private final StringProperty address= new SimpleStringProperty();
+    private final StringProperty gender= new SimpleStringProperty();
+    private final StringProperty city= new SimpleStringProperty();
+    private final StringProperty state= new SimpleStringProperty();
+    private final ObjectProperty<LocalDate> birthDate = new SimpleObjectProperty<>();
+    private final StringProperty email= new SimpleStringProperty();
+    private final StringProperty contactNumber = new SimpleStringProperty();
+    private final StringProperty course = new SimpleStringProperty();
+    private final StringProperty semester = new SimpleStringProperty();
+    private final StringProperty classs = new SimpleStringProperty();
+    private final StringProperty fees = new SimpleStringProperty();
 
-    public String getFirstName() {
-        return firstName;
+    public int getId(){
+        return id.get();
     }
-
+    public void setId(int id){
+        this.id.set(id);
+    }
+    public String getFirstName() {
+        return firstName.get();
+    }
+    public String getFullName(){
+        return fullName.get();
+    }
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName.set(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return lastName.get();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName.set(lastName);
     }
 
     public String getFathersName() {
-        return fathersName;
+        return fathersName.get();
     }
 
     public void setFathersName(String fathersName) {
-        this.fathersName = fathersName;
+        this.fathersName.set(fathersName);
     }
 
     public String getMothersName() {
-        return mothersName;
+        return mothersName.get();
     }
 
     public String getAddress() {
-        return address;
+        return address.get();
     }
 
     public String getCity() {
-        return city;
+        return city.get();
     }
 
     public void setCity(String city) {
-        this.city = city;
+        this.city.set(city);
     }
 
     public String getState() {
-        return state;
+        return state.get();
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.state.set(state);
     }
     
     public void setAddress(String address) {
-        this.address = address;
+        this.address.set(address);
     }
 
     public void setMothersName(String mothersName) {
-        this.mothersName = mothersName;
+        this.mothersName.set(mothersName);
     }
 
     public String getGender() {
-        return gender;
+        return gender.get();
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        this.gender.set(gender);
     }
 
     public LocalDate getBirthDate() {
-        return birthDate;
+        return birthDate.get();
     }
 
     public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+        this.birthDate.set(birthDate);
     }
 
     public String getEmail() {
-        return email;
+        return email.get();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email.set(email);
     }
 
     public String getContactNumber() {
-        return contactNumber;
+        return contactNumber.get();
     }
 
     public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+        this.contactNumber.set(contactNumber);
     }
 
     public String getCourse() {
-        return course;
+        return course.get();
     }
 
     public void setCourse(String course) {
-        this.course = course;
+        this.course.set(course);
     }
 
     public String getSemester() {
-        return semester;
+        return semester.get();
     }
 
     public void setSemester(String semester) {
-        this.semester = semester;
+        this.semester.set(semester);
     }
 
-    public String getclass() {
-        return Class;
+    public String getClasss() {
+        return classs.get();
     }
 
-    public void setClass(String Class) {
-        this.Class = Class;
+    public void setClasss(String Class) {
+        this.classs.set(Class);
     }
 
     public String getFees() {
-        return fees;
+        return fees.get();
     }
 
     public void setFees(String fees) {
-        this.fees = fees;
+        this.fees.set(fees);
     }
     public static class StudentBuilder{
         private final Student student = new Student();
-
+        public StudentBuilder setId(int id){
+            student.setId(id);
+            return this;
+        }
         public StudentBuilder setFirstName(String firstName) {
             student.setFirstName(firstName);
             return this;
@@ -207,8 +229,8 @@ public class Student {
             return this;
         }
 
-        public StudentBuilder setClass(String Class) {
-            student.setClass(Class);
+        public StudentBuilder setClasss(String Class) {
+            student.setClasss(Class);
             return this;
         }
 
