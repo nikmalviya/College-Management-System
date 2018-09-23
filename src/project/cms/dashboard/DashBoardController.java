@@ -3,6 +3,7 @@ package project.cms.dashboard;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +21,11 @@ public class DashBoardController {
     private JFXButton student;
     @FXML
     private AnchorPane contentNode;
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, SQLException {
         student.setOnMouseClicked(this::openStudentsView);
     }
     private void openStudentsView(MouseEvent e){
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/studentsview.fxml"));
         AnchorPane node=null;
         try {

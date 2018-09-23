@@ -44,7 +44,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="944.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <ComboBox fx:id="courseComboBox" prefWidth="150.0" promptText="Course" />
+                                    <ComboBox fx:id="courseComboBox" prefWidth="200.0" promptText="Course" />
                                     <ComboBox fx:id="semesterComboBox" prefWidth="150.0" promptText="Semester" />
                                     <ComboBox fx:id="classComboBox" prefWidth="150.0" promptText="Class" />
                                  </children>
@@ -65,20 +65,20 @@
                <center>
                   <TableView fx:id="studentsTableView" editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: none;" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                      <columns>
-                        <TableColumn fx:id="studentIdColumn" minWidth="20.0" prefWidth="100.0" text="Student ID" />
-                        <TableColumn fx:id="fullNameColumn" minWidth="20.0" prefWidth="100.0" text="Full Name" />
-                        <TableColumn fx:id="contactNoColoumn" minWidth="20.0" prefWidth="100.0" text="Contact No." />
-                        <TableColumn fx:id="emailColumn" minWidth="20.0" prefWidth="100.0" text="Email" />
-                        <TableColumn fx:id="courseColumn" minWidth="20.0" prefWidth="100.0" text="Course" />
-                        <TableColumn fx:id="semesterColumn" minWidth="20.0" prefWidth="100.0" text="Semester" />
-                        <TableColumn fx:id="classColumn" minWidth="20.0" prefWidth="100.0" text="Class" />
-                        <TableColumn fx:id="genderColumn" minWidth="20.0" prefWidth="100.0" text="Gender" />
-                        <TableColumn fx:id="fatherNameColumn" minWidth="20.0" prefWidth="100.0" text="Father's Name" />
-                        <TableColumn fx:id="motherNameColumn" minWidth="20.0" prefWidth="100.0" text="Mother's Name" />
-                        <TableColumn fx:id="birthDateColumn" minWidth="20.0" prefWidth="100.0" text="Birth Date" />
-                        <TableColumn fx:id="addressColumn" minWidth="20.0" prefWidth="100.0" text="Address" />
-                        <TableColumn fx:id="cityColumn" minWidth="20.0" prefWidth="100.0" text="City" />
-                        <TableColumn fx:id="stateColumn" minWidth="20.0" prefWidth="100.0" text="State" />
+                        <TableColumn fx:id="studentIdColumn" minWidth="100.0" prefWidth="100.0" text="Student ID" />
+                        <TableColumn fx:id="fullNameColumn" minWidth="170.0" prefWidth="100.0" text="Full Name" />
+                        <TableColumn fx:id="contactNoColoumn" minWidth="170.0" prefWidth="100.0" text="Contact No." />
+                        <TableColumn fx:id="emailColumn" minWidth="200.0" prefWidth="100.0" text="Email" />
+                        <TableColumn fx:id="courseColumn" minWidth="170.0" prefWidth="100.0" text="Course" />
+                        <TableColumn fx:id="semesterColumn" minWidth="170.0" prefWidth="100.0" text="Semester" />
+                        <TableColumn fx:id="classColumn" minWidth="170.0" prefWidth="100.0" text="Class" />
+                        <TableColumn fx:id="genderColumn" minWidth="130.0" prefWidth="100.0" text="Gender" />
+                        <TableColumn fx:id="fatherNameColumn" minWidth="170.0" prefWidth="100.0" text="Father's Name" />
+                        <TableColumn fx:id="motherNameColumn" minWidth="170.0" prefWidth="100.0" text="Mother's Name" />
+                        <TableColumn fx:id="birthDateColumn" minWidth="170.0" prefWidth="100.0" text="Birth Date" />
+                        <TableColumn fx:id="addressColumn" minWidth="170.0" prefWidth="100.0" text="Address" />
+                        <TableColumn fx:id="cityColumn" minWidth="170.0" prefWidth="100.0" text="City" />
+                        <TableColumn fx:id="stateColumn" minWidth="170.0" prefWidth="100.0" text="State" />
                      </columns>
                   </TableView>
                </center>

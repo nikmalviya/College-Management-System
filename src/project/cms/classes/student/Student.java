@@ -1,9 +1,7 @@
-package project.cms.classes;
+package project.cms.classes.student;
 
-import java.net.BindException;
 import java.time.LocalDate;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringBinding;
 import javafx.beans.binding.StringExpression;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;

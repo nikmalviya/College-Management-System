@@ -1,0 +1,36 @@
+AnchorPane{
+    -fx-background-color: white;
+}
+.header{
+    -fx-background-color:#501787;
+}
+.header .label{
+    -fx-text-fill: white;
+    -fx-font-size:24px;
+    -fx-font-family:'ShureTechMono Nerd Font';
+}
+.label{
+    -fx-font-size:18px;
+    -fx-font-family:'ShureTechMono Nerd Font';
+    -fx-margin:0 0 0 20; 
+}
+.answer{
+    -fx-font-size:16px;
+    -fx-text-fill:#737373;
+    -fx-font-family:'ShureTechMono Nerd Font';
+}
+.bold .text{
+    -fx-font-weight:700;
+}
+.jfx-button{
+    -fx-font-size:18px;
+    -fx-font-family:'ShureTechMono Nerd Font';
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-color: #501787;
+    -fx-border-radius: 20px; 
+}
+.jfx-button:hover{
+    -fx-background-color: #501787;
+    -fx-text-fill: white;
+}

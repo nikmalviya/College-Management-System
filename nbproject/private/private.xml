@@ -3,9 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/courses/CourseRepository.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/courses/Course.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/view/view.css</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/view/view.fxml</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/addstudent/addStudent.fxml</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/addstudent/addstudent.css</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/addstudent/AddStudentController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/main/Main.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/student/Student.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/dashboard/DashBoardController.java</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/StudentsViewController.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/Student.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/StudentRepository.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/main/MainController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/studentsview.css</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/view/ViewController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/student/StudentRepository.java</file>
         </group>
     </open-files>
 </project-private>

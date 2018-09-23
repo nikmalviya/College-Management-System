@@ -13,17 +13,21 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import project.cms.classes.Student;
-import project.cms.classes.StudentRepository;
+import project.cms.classes.courses.CourseRepository;
+import project.cms.classes.student.Student;
+import project.cms.classes.student.StudentRepository;
 
 /**
  * FXML Controller class
@@ -48,8 +52,6 @@ public class AddStudentController implements Initializable {
     @FXML
     private JFXTextField lastName;
     @FXML
-    private JFXTextField MothersName;
-    @FXML
     private JFXTextField fathersName;
     @FXML
     private JFXTextArea address;
@@ -64,11 +66,11 @@ public class AddStudentController implements Initializable {
     @FXML
     private JFXTextField state;
     @FXML
-    private JFXComboBox<String> Class;
+    private ComboBox<String> Class;
     @FXML
-    private JFXComboBox<String> semester;
+    private ComboBox<String> semester;
     @FXML
-    private JFXComboBox<String> course;
+    private ComboBox<String> course;
     @FXML
     private Label feeslabel;
     @FXML
@@ -77,14 +79,20 @@ public class AddStudentController implements Initializable {
     private Circle profilephoto;
     @FXML
     private JFXButton choosebtn;
+    private Student s;
     private final ToggleGroup gender = new ToggleGroup();
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
+    private boolean isUpdateMode= false;
+    @FXML
+    private Label title;
+    @FXML
+    private JFXTextField MothersName;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            course.setItems(CourseRepository.getCourseRepository().getCourseNameList());
+        } catch (SQLException ex) {
+            Logger.getLogger(AddStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         maleRadio.setUserData("male");
         femaleRadio.setUserData("female");
         otherRadio.setUserData("other");
@@ -115,12 +123,42 @@ public class AddStudentController implements Initializable {
                                     .setClasss(Class.getValue())
                                     .build();
         try {
-            StudentRepository.getStudentRepository().addNewStudent(student);
+            if(isUpdateMode){
+                student.setId(s.getId());
+                StudentRepository.getStudentRepository().updateStudent(s,student);
+            }
+            else 
+                StudentRepository.getStudentRepository().addNewStudent(student);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
-        
+    }
+    public void initValues(Student s){
+        title.setText("Update Student");
+        addstudentbtn.setText("Update");
+        this.s =s;
+        firstName.setText(s.getFirstName());
+        lastName.setText(s.getLastName());
+        fathersName.setText(s.getFathersName());
+        MothersName.setText(s.getMothersName());
+        address.setText(s.getAddress());
+        city.setText(s.getCity());
+        state.setText(s.getState());
+        switch(s.getGender().toLowerCase()){
+            case "male":
+                gender.selectToggle(maleRadio); break;
+            case "female":
+                gender.selectToggle(femaleRadio); break;
+            case "other":
+                gender.selectToggle(otherRadio); break;
+        }
+        birthDate.setValue(s.getBirthDate());
+        contactNumber.setText(s.getContactNumber());
+        email.setText(s.getEmail());
+        course.getSelectionModel().select(s.getCourse());
+        semester.getSelectionModel().select(s.getSemester());
+        Class.getSelectionModel().select(s.getClasss());
+        isUpdateMode = true;
     }
     
 }

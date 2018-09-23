@@ -55,7 +55,56 @@
 .date-picker{
     -fx-font-family: 'ShureTechMono Nerd Font';
 }
-.combo-box {
+/*.combo-box {
       -fx-font-family: 'ShureTechMono Nerd Font';
       -fx-font-size:15px;
+}*/
+.combo-box{
+    -fx-border-width: 0.5px;
+    -fx-border-color: #501787;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-background-color: white;
+    -fx-font-size: 15px; 
+    -fx-padding: 0px;
+    -fx-font-weight:700;
+    -fx-font-family: 'ShureTechMono Nerd Font';
+}
+.combo-box:hover .list-cell{
+    -fx-text-fill: white;
+}
+.combo-box:focused .list-cell{
+    -fx-text-fill: white;
+}
+.combo-box-base:hover{
+    -fx-background-color: #8145b8;
+    -fx-text-fill: white;
+}
+.combo-box-base:focused{
+    -fx-background-color: #501787;
+    -fx-text-fill: white;
+}
+.combo-box .list-view{
+    -fx-border-width: 0.5px;
+    -fx-border-color: #501787;
+    -fx-background-color: white;
+    -fx-padding: 0px;
+    -fx-font-weight:700;
+    -fx-border-radius: 10px 10px 10px 10px;
+    -fx-background-radius: 10px 10px 10px 10px;
+}
+.combo-box .list-view .list-cell{
+    -fx-background-radius: 10px;
+}
+.combo-box .list-view .list-cell:filled {
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+.combo-box .list-view .list-cell:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #8145b8;
+}
+.combo-box .list-view .list-cell:selected {
+    -fx-text-fill: white;
+    -fx-background-color: #501787;
 }

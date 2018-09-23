@@ -6,6 +6,7 @@
 package project.cms.students;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSpinner;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,8 +27,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import project.cms.classes.Student;
-import project.cms.classes.StudentRepository;
+import project.cms.classes.courses.CourseRepository;
+import project.cms.classes.student.Student;
+import project.cms.classes.student.StudentRepository;
+import project.cms.students.addstudent.AddStudentController;
+import project.cms.students.view.ViewController;
 
 /**
  * FXML Controller class
@@ -63,40 +67,42 @@ public class StudentsViewController implements Initializable {
     @FXML
     private TableView<Student> studentsTableView;
     @FXML
-    private TableColumn<Student,Integer> studentIdColumn;
+    private TableColumn<Student, Integer> studentIdColumn;
     @FXML
-    private TableColumn<Student,String> fullNameColumn;
+    private TableColumn<Student, String> fullNameColumn;
     @FXML
-    private TableColumn<Student,String> contactNoColoumn;
+    private TableColumn<Student, String> contactNoColoumn;
     @FXML
-    private TableColumn<Student,String> emailColumn;
+    private TableColumn<Student, String> emailColumn;
     @FXML
-    private TableColumn<Student,String> courseColumn;
+    private TableColumn<Student, String> courseColumn;
     @FXML
-    private TableColumn<Student,String> semesterColumn;
+    private TableColumn<Student, String> semesterColumn;
     @FXML
-    private TableColumn<Student,String> classColumn;
+    private TableColumn<Student, String> classColumn;
     @FXML
-    private TableColumn<Student,String> genderColumn;
+    private TableColumn<Student, String> genderColumn;
     @FXML
-    private TableColumn<Student,String> fatherNameColumn;
+    private TableColumn<Student, String> fatherNameColumn;
     @FXML
-    private TableColumn<Student,String> motherNameColumn;
+    private TableColumn<Student, String> motherNameColumn;
     @FXML
-    private TableColumn<Student,String> birthDateColumn;
+    private TableColumn<Student, String> birthDateColumn;
     @FXML
-    private TableColumn<Student,String> addressColumn;
+    private TableColumn<Student, String> addressColumn;
     @FXML
-    private TableColumn<Student,String> cityColumn;
+    private TableColumn<Student, String> cityColumn;
     @FXML
-    private TableColumn<Student,String> stateColumn;
+    private TableColumn<Student, String> stateColumn;
     private static StudentRepository students;
+
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
         updateButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
         viewButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
         deleteButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
         try {
+            courseComboBox.setItems(CourseRepository.getCourseRepository().getCourseNameList());
             students = StudentRepository.getStudentRepository();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,12 +110,15 @@ public class StudentsViewController implements Initializable {
         initTableCellValueFactory();
         addStudentButton.setOnMouseClicked(this::openAddStudentWindow);
         deleteButton.setOnMouseClicked(this::deleteStudent);
+        viewButton.setOnMouseClicked(this::showViewWindow);
+        updateButton.setOnMouseClicked(this::showUpdateWindow);
         studentsTableView.getItems().clear();
         studentsTableView.itemsProperty().set(students.getStudents());
     }
-    private void openAddStudentWindow(MouseEvent e){
+
+    private void openAddStudentWindow(MouseEvent e) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/addstudent/addStudent.fxml"));
-        AnchorPane node=null;
+        AnchorPane node = null;
         try {
             node = loader.load();
         } catch (IOException ex) {
@@ -119,6 +128,7 @@ public class StudentsViewController implements Initializable {
         stage.setScene(new Scene(node));
         stage.show();
     }
+
     private void initTableCellValueFactory() {
         studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -135,20 +145,49 @@ public class StudentsViewController implements Initializable {
         cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
     }
-    private void deleteStudent(MouseEvent e){
+
+    private void deleteStudent(MouseEvent e) {
         Student s = studentsTableView.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Dou you Really Want To Delete?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Dou you Really Want To Delete?");
         alert.showAndWait();
         ButtonType result = alert.getResult();
-        if(result == ButtonType.OK){
+        if (result == ButtonType.OK) {
             students.getStudents().remove(s);
             try {
                 students.deleteStudent(s);
             } catch (SQLException ex) {
                 System.out.println("Cannot Delete this Student");
             }
-            
         }
-        
+    }
+
+    private void showViewWindow(MouseEvent e) {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/view/view.fxml"));
+        AnchorPane pane = null;
+        try {
+            pane = loader.load();
+        } catch (IOException ex) {
+            System.out.println("Cannot Load view Window");
+        }
+        ViewController c = loader.getController();
+        c.setStudent(studentsTableView.getSelectionModel().getSelectedItem());
+        Stage stage = new Stage();
+        stage.setScene(new Scene(pane));
+        stage.show();
+    }
+    private void showUpdateWindow(MouseEvent e){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/addstudent/addStudent.fxml"));
+        AnchorPane root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        AddStudentController ac = loader.getController();
+        ac.initValues(studentsTableView.getSelectionModel().getSelectedItem());
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 }
