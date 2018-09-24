@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import project.cms.classes.courses.CourseRepository;
+import project.cms.classes.semester.SemesterRepository;
 import project.cms.database.Database;
 
 public class StudentRepository {
@@ -23,9 +24,9 @@ public class StudentRepository {
 
     private StudentRepository() throws SQLException {
         initStudentsRepositary();
-        this.insertStudent = Database.getConnection().prepareStatement("INSERT INTO cms.student (first_name, last_name, father_name, mother_name, address, city, state, gender, birthdate, contact_number, email, course_id, sem_id, class_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?)");
+        this.insertStudent = Database.getConnection().prepareStatement("INSERT INTO cms.student (first_name, last_name, father_name, mother_name, address, city, state, gender, birthdate, contact_number, email, course_id, sem_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)");
         this.deleteStudent = Database.getConnection().prepareStatement("DELETE FROM cms.student where student_id = ?");
-        this.updateStudent = Database.getConnection().prepareStatement("UPDATE cms.student SET first_name=?,last_name=?,father_name=?, mother_name=?, address=?, city=?, state=?, gender=?, birthdate=?, contact_number=?, email=?, course_id=?, sem_id=?, class_id=? where student_id=?");
+        this.updateStudent = Database.getConnection().prepareStatement("UPDATE cms.student SET first_name=?,last_name=?,father_name=?, mother_name=?, address=?, city=?, state=?, gender=?, birthdate=?, contact_number=?, email=?, course_id=?, sem_id=? where student_id=?");
     }
     
     public static StudentRepository getStudentRepository() throws SQLException{
@@ -48,8 +49,7 @@ public class StudentRepository {
         insertStudent.setString(10, s.getContactNumber());
         insertStudent.setString(11, s.getEmail());
         insertStudent.setInt(12, CourseRepository.getCourseRepository().getCourseId(s));
-        insertStudent.setString(13, s.getSemester());
-        insertStudent.setString(14, s.getClasss());
+        insertStudent.setInt(13, SemesterRepository.getSemesterRepository().getSemesterId(s.getSemester()));
         insertStudent.execute();
         STUDENTS.clear();
         initStudentsRepositary();
@@ -68,9 +68,8 @@ public class StudentRepository {
         updateStudent.setString(10, newStudent.getContactNumber());
         updateStudent.setString(11, newStudent.getEmail());
         updateStudent.setInt(12, CourseRepository.getCourseRepository().getCourseId(newStudent));
-        updateStudent.setString(13, newStudent.getSemester());
-        updateStudent.setString(14, newStudent.getClasss());
-        updateStudent.setInt(15,newStudent.getId());
+        updateStudent.setInt(13, SemesterRepository.getSemesterRepository().getSemesterId(newStudent.getSemester()));
+        updateStudent.setInt(14,newStudent.getId());
         updateStudent.execute();
         STUDENTS.add(STUDENTS.indexOf(oldStudent),newStudent);
         STUDENTS.remove(oldStudent);
@@ -97,8 +96,7 @@ public class StudentRepository {
                     .setContactNumber(rs.getString("contact_number"))
                     .setEmail(rs.getString("email"))
                     .setCourse(CourseRepository.getCourseRepository().getCourseName(rs.getInt("course_id")))
-                    .setSemester(rs.getString("sem_id"))
-                    .setClasss(rs.getString("class_id"))
+                    .setSemester(SemesterRepository.getSemesterRepository().getSemesterName(rs.getInt("sem_id")))
                     .build();
             STUDENTS.add(student);
         }

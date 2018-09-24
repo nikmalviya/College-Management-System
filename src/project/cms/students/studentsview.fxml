@@ -46,7 +46,6 @@
                                  <children>
                                     <ComboBox fx:id="courseComboBox" prefWidth="200.0" promptText="Course" />
                                     <ComboBox fx:id="semesterComboBox" prefWidth="150.0" promptText="Semester" />
-                                    <ComboBox fx:id="classComboBox" prefWidth="150.0" promptText="Class" />
                                  </children>
                               </HBox>
                            </children>
@@ -71,7 +70,6 @@
                         <TableColumn fx:id="emailColumn" minWidth="200.0" prefWidth="100.0" text="Email" />
                         <TableColumn fx:id="courseColumn" minWidth="170.0" prefWidth="100.0" text="Course" />
                         <TableColumn fx:id="semesterColumn" minWidth="170.0" prefWidth="100.0" text="Semester" />
-                        <TableColumn fx:id="classColumn" minWidth="170.0" prefWidth="100.0" text="Class" />
                         <TableColumn fx:id="genderColumn" minWidth="130.0" prefWidth="100.0" text="Gender" />
                         <TableColumn fx:id="fatherNameColumn" minWidth="170.0" prefWidth="100.0" text="Father's Name" />
                         <TableColumn fx:id="motherNameColumn" minWidth="170.0" prefWidth="100.0" text="Mother's Name" />

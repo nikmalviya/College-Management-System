@@ -59,6 +59,16 @@ public class CourseRepository {
         }
         return id;
     }
+    public int getCourseId(String c) throws SQLException{
+        String sql="select course_id from cms.course where course_name='"+c+"'";
+        Database.getInstance();
+        ResultSet rs = Database.executeQuery(sql);
+        int id=0;
+        while(rs.next()){
+            id = rs.getInt("course_id");
+        }
+        return id;
+    }
     public void deleteCourse(Course s) throws SQLException{
         deleteCourse.setInt(1,s.getCourseId());
         deleteCourse.execute();

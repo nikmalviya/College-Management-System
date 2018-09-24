@@ -5,17 +5,16 @@
         <group>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/courses/CourseRepository.java</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/courses/Course.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/view/view.css</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/view/view.fxml</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/coursesview/courseview.fxml</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/coursesview/courseview.css</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/addstudent/addStudent.fxml</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/addstudent/addstudent.css</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/studentsview.fxml</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/addstudent/AddStudentController.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/main/Main.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/coursesview/CourseviewController.java</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/student/Student.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/dashboard/DashBoardController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/semester/SemesterRepository.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/semester/Semester.java</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/StudentsViewController.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/main/MainController.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/studentsview.css</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/view/ViewController.java</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/student/StudentRepository.java</file>
         </group>

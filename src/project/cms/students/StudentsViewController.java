@@ -6,13 +6,13 @@
 package project.cms.students;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSpinner;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import project.cms.classes.courses.CourseRepository;
+import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.student.Student;
 import project.cms.classes.student.StudentRepository;
 import project.cms.students.addstudent.AddStudentController;
@@ -53,8 +54,6 @@ public class StudentsViewController implements Initializable {
     @FXML
     private ComboBox<String> semesterComboBox;
     @FXML
-    private ComboBox<String> classComboBox;
-    @FXML
     private JFXButton addStudentButton;
     @FXML
     private JFXButton addMultipleStudentButton;
@@ -79,8 +78,6 @@ public class StudentsViewController implements Initializable {
     @FXML
     private TableColumn<Student, String> semesterColumn;
     @FXML
-    private TableColumn<Student, String> classColumn;
-    @FXML
     private TableColumn<Student, String> genderColumn;
     @FXML
     private TableColumn<Student, String> fatherNameColumn;
@@ -103,6 +100,7 @@ public class StudentsViewController implements Initializable {
         deleteButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
         try {
             courseComboBox.setItems(CourseRepository.getCourseRepository().getCourseNameList());
+            semesterComboBox.setItems(SemesterRepository.getSemesterRepository().getSemesterNameList());
             students = StudentRepository.getStudentRepository();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,6 +112,7 @@ public class StudentsViewController implements Initializable {
         updateButton.setOnMouseClicked(this::showUpdateWindow);
         studentsTableView.getItems().clear();
         studentsTableView.itemsProperty().set(students.getStudents());
+        
     }
 
     private void openAddStudentWindow(MouseEvent e) {
@@ -138,7 +137,6 @@ public class StudentsViewController implements Initializable {
         contactNoColoumn.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
         courseColumn.setCellValueFactory(new PropertyValueFactory<>("course"));
         semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semester"));
-        classColumn.setCellValueFactory(new PropertyValueFactory<>("classs"));
         fatherNameColumn.setCellValueFactory(new PropertyValueFactory<>("fathersName"));
         motherNameColumn.setCellValueFactory(new PropertyValueFactory<>("mothersName"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));

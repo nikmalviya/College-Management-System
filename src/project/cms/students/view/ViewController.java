@@ -74,7 +74,6 @@ public class ViewController implements Initializable {
         state.setText(s.getState());
         contactno.setText(s.getContactNumber());
         course.setText(s.getCourse());
-        className.setText(s.getClasss());
         mothersName.setText(s.getMothersName());
         fatherName.setText(s.getFathersName());
         city.setText(s.getCity());

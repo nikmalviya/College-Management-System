@@ -30,7 +30,6 @@ public class Student {
     private final StringProperty contactNumber = new SimpleStringProperty();
     private final StringProperty course = new SimpleStringProperty();
     private final StringProperty semester = new SimpleStringProperty();
-    private final StringProperty classs = new SimpleStringProperty();
     private final StringProperty fees = new SimpleStringProperty();
 
     public int getId(){
@@ -145,14 +144,6 @@ public class Student {
         this.semester.set(semester);
     }
 
-    public String getClasss() {
-        return classs.get();
-    }
-
-    public void setClasss(String Class) {
-        this.classs.set(Class);
-    }
-
     public String getFees() {
         return fees.get();
     }
@@ -224,11 +215,6 @@ public class Student {
 
         public StudentBuilder setSemester(String semester) {
             student.setSemester(semester);
-            return this;
-        }
-
-        public StudentBuilder setClasss(String Class) {
-            student.setClasss(Class);
             return this;
         }
 
