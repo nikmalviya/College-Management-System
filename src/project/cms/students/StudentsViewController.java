@@ -112,6 +112,11 @@ public class StudentsViewController implements Initializable {
         updateButton.setOnMouseClicked(this::showUpdateWindow);
         studentsTableView.getItems().clear();
         studentsTableView.itemsProperty().set(students.getStudents());
+        studentsTableView.setOnMouseClicked(e->{
+            if (e.getClickCount()==2) {
+                showViewWindow(e);
+            }
+        });
         
     }
 

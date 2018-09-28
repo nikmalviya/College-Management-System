@@ -10,17 +10,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="rootNode" prefHeight="718.0" prefWidth="1141.0" styleClass="anchor-pane" stylesheets="@../students/studentsview.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.cms.students.StudentsViewController">
+<AnchorPane fx:id="rootNode" prefHeight="718.0" prefWidth="1141.0" styleClass="anchor-pane" stylesheets="@../students/studentsview.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.cms.coursesview.CourseviewController">
+    <stylesheets>
+        <URL value="@courseview.css" />
+    </stylesheets>
    <children>
       <Label layoutX="62.0" layoutY="50.0" prefHeight="51.0" prefWidth="227.0" styleClass="heading" text="Courses" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="20.0" />
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="494.0" prefWidth="834.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="80.0">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="494.0" prefWidth="834.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="80.0">
          <children>
             <BorderPane layoutX="220.0" layoutY="140.0" prefHeight="479.0" prefWidth="639.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <bottom>
                   <HBox alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="944.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="addStudentButton" layoutX="839.0" layoutY="28.0" text="Add Student" />
-                        <JFXButton fx:id="viewButton" text="View" />
+                        <JFXTextField fx:id="courseTextField" focusColor="#501787" labelFloat="true" prefHeight="32.0" prefWidth="280.0" promptText="Course Name" />
+                        <JFXTextField fx:id="semTextField" focusColor="#501787" labelFloat="true" layoutX="226.0" layoutY="28.0" prefHeight="32.0" prefWidth="142.0" promptText="No.of Semesters" />
+                        <JFXButton fx:id="addCourseButton" layoutX="839.0" layoutY="28.0" text="Add Course" />
                         <JFXButton fx:id="updateButton" layoutX="802.0" layoutY="31.0" text="Update" />
                         <JFXButton fx:id="deleteButton" layoutX="720.0" layoutY="31.0" text="Delete" />
                      </children>
@@ -48,11 +52,11 @@
                   </BorderPane>
                </top>
                <center>
-                  <TableView fx:id="studentsTableView" editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: none;" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+                  <TableView fx:id="courseTableView" editable="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: none; -fx-border-color: none;" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                      <columns>
-                        <TableColumn fx:id="studentIdColumn" minWidth="100.0" prefWidth="100.0" text="Course ID" />
-                        <TableColumn fx:id="fullNameColumn" minWidth="170.0" prefWidth="100.0" text="Course Name" />
-                        <TableColumn fx:id="contactNoColoumn" minWidth="170.0" prefWidth="100.0" text="No of Semesters" />
+                        <TableColumn fx:id="courseIdColumn" minWidth="100.0" prefWidth="100.0" text="Course ID" />
+                        <TableColumn fx:id="courseNameColumn" minWidth="170.0" prefWidth="100.0" text="Course Name" />
+                        <TableColumn fx:id="noOfSemestersColoumn" minWidth="170.0" prefWidth="100.0" text="No of Semesters" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.geometry.*?>
 <?import org.controlsfx.glyphfont.*?>
 <?import com.jfoenix.controls.*?>
@@ -36,40 +37,72 @@
                <children>
                   <VBox layoutX="-4.099999904632568" layoutY="6.900000095367432" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <JFXButton fx:id="home" contentDisplay="TOP" prefHeight="40.0" prefWidth="225.0" text="Home">
+                        <JFXButton fx:id="home" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="40.0" prefWidth="225.0" ripplerFill="#501787" text="Home">
                            <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/home.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                            <VBox.margin>
-                              <Insets />
+                              <Insets left="15.0" right="15.0" />
                            </VBox.margin>
                            <padding>
-                              <Insets left="-10.0" top="10.0" />
+                              <Insets bottom="5.0" top="5.0" />
                            </padding>
                         </JFXButton>
-                        <JFXButton fx:id="student" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0" text="Student">
+                        <JFXButton fx:id="student" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0" ripplerFill="#501787" text="Student">
                            <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/student.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                            <padding>
-                              <Insets left="-10.0" top="10.0" />
+                              <Insets bottom="5.0" top="5.0" />
                            </padding>
                            <VBox.margin>
-                              <Insets />
+                              <Insets left="15.0" right="15.0" />
                            </VBox.margin>
                         </JFXButton>
-                        <JFXButton layoutX="10.0" layoutY="45.0" prefHeight="40.0" prefWidth="225.0" />
-                        <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0" />
-                        <JFXButton layoutX="10.0" layoutY="115.0" prefHeight="40.0" prefWidth="225.0" />
-                        <JFXButton layoutX="10.0" layoutY="80.0" prefHeight="40.0" prefWidth="225.0" />
+                        <JFXButton fx:id="courses" layoutX="10.0" layoutY="45.0" prefHeight="40.0" prefWidth="225.0" text="Courses">
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                           <ripplerFill>
+                              <RadialGradient centerX="0.4831460674157303" centerY="0.5336538461538461" cycleMethod="REFLECT" focusAngle="-20.56" focusDistance="-0.1428571428571428" radius="0.4166666666666667">
+                                 <stops>
+                                    <Stop color="#13267c" />
+                                    <Stop color="#752a6a" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </ripplerFill></JFXButton>
+                        <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0">
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding></JFXButton>
+                        <JFXButton layoutX="10.0" layoutY="115.0" prefHeight="40.0" prefWidth="225.0">
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding></JFXButton>
+                        <JFXButton layoutX="10.0" layoutY="80.0" prefHeight="40.0" prefWidth="225.0">
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding></JFXButton>
                      </children>
                   </VBox>
                </children>

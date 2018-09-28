@@ -3,6 +3,7 @@ package project.cms.classes.courses;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import project.cms.classes.student.Student;
@@ -12,6 +13,7 @@ public class CourseRepository {
 
     private final PreparedStatement insertCourse;
     private final PreparedStatement deleteCourse;
+    private final PreparedStatement updateCourse;
     private static final ObservableList<Course> COURSES = FXCollections.observableArrayList();
     private static final ObservableList<String> COURSE_NAME_LIST = FXCollections.observableArrayList();
     private static CourseRepository coursesrepo;
@@ -26,8 +28,9 @@ public class CourseRepository {
     
     private CourseRepository() throws SQLException {
         initCoursesRepositary();
-        this.insertCourse = Database.getConnection().prepareStatement("INSERT INTO cms.course (course_name) VALUES (?)");
+        this.insertCourse = Database.getConnection().prepareStatement("INSERT INTO cms.course (course_name,no_of_sem) VALUES (?,?)");
         this.deleteCourse = Database.getConnection().prepareStatement("DELETE FROM cms.course where course_id = ?");
+        this.updateCourse = Database.getConnection().prepareStatement("UPDATE cms.course SET course_name = ? , no_of_sem = ? where course_id = ?");
     }
     public static CourseRepository getCourseRepository() throws SQLException{
         if (coursesrepo == null) {
@@ -35,11 +38,26 @@ public class CourseRepository {
         }
         return coursesrepo;
     }
-    
+    public void updateCourse(Course old,Course c)throws SQLException{
+        this.updateCourse.setString(1,c.getCourseName());
+        this.updateCourse.setInt(2,c.getNoOfSemester());
+        this.updateCourse.setInt(3,c.getCourseId());
+        updateCourse.execute();       
+        int i = COURSES.indexOf(old);
+        COURSES.remove(i);
+        COURSE_NAME_LIST.removeIf( e -> e.equals(old.getCourseName()));
+        COURSE_NAME_LIST.add(c.getCourseName());
+        COURSES.add(i,c);
+    }
     public void addNewCourse(Course s) throws SQLException {
         insertCourse.setString(1, s.getCourseName());
+        insertCourse.setInt(2, s.getNoOfSemester());
         insertCourse.execute();
+//        int cid = s.getCourseId();String sql;
+//        for (int i = 1; i <=s.getNoOfSemester(); i++)
+//         Database.executeUpdate("INSERT INTO cms.course_with_sem values ("+cid+","+i+")");
         COURSES.clear();
+        COURSE_NAME_LIST.clear();
         initCoursesRepositary();
 
     }
@@ -72,12 +90,14 @@ public class CourseRepository {
     public void deleteCourse(Course s) throws SQLException{
         deleteCourse.setInt(1,s.getCourseId());
         deleteCourse.execute();
+        COURSES.remove(s);
+        COURSE_NAME_LIST.remove(s.getCourseName());
     }
     private void initCoursesRepositary() throws SQLException {
         Database.getInstance();
         ResultSet rs = Database.executeQuery("select * from cms.course");
         while (rs.next()) {
-            COURSES.add(new Course(rs.getInt("course_id"),rs.getString("course_name")));
+            COURSES.add(new Course(rs.getInt("course_id"),rs.getString("course_name"),rs.getInt("no_of_sem")));
             COURSE_NAME_LIST.add(rs.getString("course_name"));
         }
     }

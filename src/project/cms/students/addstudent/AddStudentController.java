@@ -141,6 +141,7 @@ public class AddStudentController implements Initializable {
             if (isUpdateMode) {
                 student.setId(s.getId());
                 StudentRepository.getStudentRepository().updateStudent(s, student);
+                isUpdateMode = false;
             } else {
                 StudentRepository.getStudentRepository().addNewStudent(student);
             }
