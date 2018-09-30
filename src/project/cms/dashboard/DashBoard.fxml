@@ -22,9 +22,9 @@
         <URL value="@dashboard.css" />
     </stylesheets>
    <children>
-      <AnchorPane layoutY="113.0" prefHeight="768.0" prefWidth="225.0" styleClass="side-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="sidePane" layoutY="113.0" prefHeight="768.0" prefWidth="225.0" styleClass="side-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Dashboard" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="30.0">
+            <Label fx:id="dashboardLabel" alignment="CENTER" text="Dashboard" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                <graphic>
                   <ImageView fitHeight="51.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -35,9 +35,9 @@
             </Label>
             <AnchorPane layoutX="-4.099999904632568" layoutY="-3.0999999046325684" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                <children>
-                  <VBox layoutX="-4.099999904632568" layoutY="6.900000095367432" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="buttonsVBox" layoutX="-4.099999904632568" layoutY="6.900000095367432" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <JFXButton fx:id="home" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="40.0" prefWidth="225.0" ripplerFill="#501787" text="Home">
+                        <JFXButton fx:id="home" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="40.0" prefWidth="225.0" text="Home">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -51,8 +51,16 @@
                            <padding>
                               <Insets bottom="5.0" top="5.0" />
                            </padding>
+                           <ripplerFill>
+                              <RadialGradient centerX="0.5224719101123596" centerY="0.5528846153846154" cycleMethod="REFLECT" focusAngle="-20.56" focusDistance="-0.07142857142857151" radius="0.1904761904761905">
+                                 <stops>
+                                    <Stop color="#501787" />
+                                    <Stop color="#8145b8" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </ripplerFill>
                         </JFXButton>
-                        <JFXButton fx:id="student" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0" ripplerFill="#501787" text="Student">
+                        <JFXButton fx:id="student" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0" text="Student">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -66,8 +74,16 @@
                            <VBox.margin>
                               <Insets left="15.0" right="15.0" />
                            </VBox.margin>
+                           <ripplerFill>
+                              <RadialGradient centerX="0.5224719101123596" centerY="0.5528846153846154" cycleMethod="REFLECT" focusAngle="-20.56" focusDistance="-0.07142857142857151" radius="0.1904761904761905">
+                                 <stops>
+                                    <Stop color="#501787" />
+                                    <Stop color="#8145b8" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </ripplerFill>
                         </JFXButton>
-                        <JFXButton fx:id="courses" layoutX="10.0" layoutY="45.0" prefHeight="40.0" prefWidth="225.0" text="Courses">
+                        <JFXButton fx:id="courses" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="45.0" prefHeight="40.0" prefWidth="225.0" text="Courses">
                            <VBox.margin>
                               <Insets left="15.0" right="15.0" />
                            </VBox.margin>
@@ -75,41 +91,91 @@
                               <Insets bottom="5.0" top="5.0" />
                            </padding>
                            <ripplerFill>
-                              <RadialGradient centerX="0.4831460674157303" centerY="0.5336538461538461" cycleMethod="REFLECT" focusAngle="-20.56" focusDistance="-0.1428571428571428" radius="0.4166666666666667">
+                              <RadialGradient centerX="0.5224719101123596" centerY="0.5528846153846154" cycleMethod="REFLECT" focusAngle="-20.56" focusDistance="-0.07142857142857151" radius="0.1904761904761905">
                                  <stops>
-                                    <Stop color="#13267c" />
-                                    <Stop color="#752a6a" offset="1.0" />
+                                    <Stop color="#8145b8" />
+                                    <Stop color="#501787" offset="1.0" />
                                  </stops>
                               </RadialGradient>
-                           </ripplerFill></JFXButton>
-                        <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0">
+                           </ripplerFill>
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/course.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="department" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="225.0" text="Departments">
                            <VBox.margin>
                               <Insets left="15.0" right="15.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="5.0" top="5.0" />
-                           </padding></JFXButton>
-                        <JFXButton layoutX="10.0" layoutY="115.0" prefHeight="40.0" prefWidth="225.0">
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/department.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="faculty" contentDisplay="TOP" layoutX="10.0" layoutY="80.0" prefHeight="40.0" prefWidth="225.0" text="Faculties">
                            <VBox.margin>
                               <Insets left="15.0" right="15.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="5.0" top="5.0" />
-                           </padding></JFXButton>
-                        <JFXButton layoutX="10.0" layoutY="80.0" prefHeight="40.0" prefWidth="225.0">
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/teacher.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="subject" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="115.0" prefHeight="40.0" prefWidth="225.0" text="Subjects">
                            <VBox.margin>
                               <Insets left="15.0" right="15.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="5.0" top="5.0" />
-                           </padding></JFXButton>
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/subject.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="settings" contentDisplay="TOP" graphicTextGap="0.0" layoutX="25.0" layoutY="364.0" prefHeight="40.0" prefWidth="225.0" text="Settings">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/settings.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="15.0" right="15.0" />
+                           </VBox.margin>
+                        </JFXButton>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="contentNode1" layoutX="235.0" layoutY="60.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #8145b8;" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="contentNode" layoutX="244.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <AnchorPane fx:id="headerPane" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #8145b8;" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXHamburger fx:id="sidemenuToggle" layoutX="14.0" layoutY="9.0" prefHeight="32.0" prefWidth="50.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="9.0" />
+         </children></AnchorPane>
    </children>
 </AnchorPane>

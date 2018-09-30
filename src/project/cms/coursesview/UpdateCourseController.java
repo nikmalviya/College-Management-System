@@ -58,7 +58,7 @@ public class UpdateCourseController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR,"Course Cannot Be Updated");
             a.show();
         }
-        Alert a = new Alert(Alert.AlertType.INFORMATION,"Course Updated Successfullt");
+        Alert a = new Alert(Alert.AlertType.INFORMATION,"Course Updated Successfully..");
         a.show();
     }
     private void closeWindow(MouseEvent e){

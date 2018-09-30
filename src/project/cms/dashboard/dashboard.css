@@ -33,4 +33,12 @@
     -fx-border-width: 1px;
     -fx-background-color: -fx-secondary;
 }
+.jfx-hamburger-icon{
+    -fx-spacing:7;
+    
+}
+.jfx-hamburger StackPane{
+    -fx-backround-radius:5px;
+    -fx-background-color: #1d0059;
+}
 

@@ -1,0 +1,15 @@
+AnchorPane{
+    -fx-background-color: white;
+}
+.jfx-text-field{
+    -fx-font-size:17px;
+    -fx-font-family:'ShureTechMono Nerd Font';
+}
+.header {
+    -fx-background-color: #501787;
+}
+.header .label{
+    -fx-text-fill:white;
+    -fx-font-size:24px;
+    -fx-font-family:'ShureTechMono Nerd Font';
+}
