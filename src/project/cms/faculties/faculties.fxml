@@ -23,6 +23,7 @@
                   <HBox alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="944.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
                         <JFXButton fx:id="addFacultyButton" layoutX="839.0" layoutY="28.0" text="Add Faculty" />
+                        <JFXButton fx:id="viewButton" layoutX="607.0" layoutY="28.0" text="View" />
                         <JFXButton fx:id="updateButton" layoutX="802.0" layoutY="31.0" text="Update" />
                         <JFXButton fx:id="deleteButton" layoutX="720.0" layoutY="31.0" text="Delete" />
                      </children>

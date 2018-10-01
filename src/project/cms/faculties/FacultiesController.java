@@ -6,19 +6,23 @@
 package project.cms.faculties;
 
 import com.jfoenix.controls.JFXButton;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import project.cms.classes.faculty.Faculty;
 import project.cms.classes.faculty.FacultyRepository;
 
@@ -61,6 +65,8 @@ public class FacultiesController implements Initializable {
     private TableColumn<Faculty,String> addressCol;
     @FXML
     private TableColumn<Faculty,String> birthdateCol;
+    @FXML
+    private JFXButton viewButton;
 
     /**
      * Initializes the controller class.
@@ -70,12 +76,12 @@ public class FacultiesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         updateButton.disableProperty().bind(facultyTableView.getSelectionModel().selectedItemProperty().isNull());
-        //viewButton.disableProperty().bind(facultyTableView.getSelectionModel().selectedItemProperty().isNull());
+        viewButton.disableProperty().bind(facultyTableView.getSelectionModel().selectedItemProperty().isNull());
         deleteButton.disableProperty().bind(facultyTableView.getSelectionModel().selectedItemProperty().isNull());
         initTableCellValueFactory();
         addFacultyButton.setOnMouseClicked(this::openAddFacultyWindow);
         deleteButton.setOnMouseClicked(this::deleteFaculty);
-        //viewButton.setOnMouseClicked(this::showViewWindow);
+        viewButton.setOnMouseClicked(this::showViewWindow);
         updateButton.setOnMouseClicked(this::showUpdateWindow);
         facultyTableView.getItems().clear();
         try {
@@ -83,11 +89,11 @@ public class FacultiesController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(FacultiesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        facultyTableView.setOnMouseClicked(e->{
-//            if (e.getClickCount()==2) {
-//                showViewWindow(e);
-//            }
-//        });
+        facultyTableView.setOnMouseClicked(e->{
+            if (e.getClickCount()==2) {
+                showViewWindow(e);
+            }
+        });
     }    
 
     private void initTableCellValueFactory() {
@@ -100,7 +106,19 @@ public class FacultiesController implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         birthdateCol.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
     }
+    public void showViewWindow(MouseEvent e){
+        
+    }
     public void openAddFacultyWindow(MouseEvent e){
+        Stage stage = new Stage();
+        AnchorPane root=null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("addfaculty.fxml"));
+        } catch (IOException ex) {
+            System.out.println("Cannot Load addfaculty Window");
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
         
     }
     public void deleteFaculty(MouseEvent e){

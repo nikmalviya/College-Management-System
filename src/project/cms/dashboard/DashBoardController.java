@@ -2,6 +2,7 @@ package project.cms.dashboard;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -57,9 +58,9 @@ public class DashBoardController {
     @FXML
     private JFXButton subject;
     private boolean isMinimized=false;
-    HamburgerSlideCloseTransition ham;
+    HamburgerNextArrowBasicTransition ham;
     public void initialize() throws IOException, SQLException {
-        ham = new HamburgerSlideCloseTransition(sidemenuToggle);
+        ham = new HamburgerNextArrowBasicTransition(sidemenuToggle);
         ham.setRate(-1);
         student.setOnMouseClicked(e -> openView(e, Windows.STUDENT));
         courses.setOnMouseClicked(e -> openView(e, Windows.COURSE));
