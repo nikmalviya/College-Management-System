@@ -30,7 +30,7 @@ public class FacultyRepository {
         initFacultysRepositary();
         this.insertFaculty = Database.getConnection().prepareStatement("INSERT INTO cms.faculty VALUES (null,?,?,?,?,?,?,?)");
         this.deleteFaculty = Database.getConnection().prepareStatement("DELETE FROM cms.faculty where faculty_id = ?");
-        this.updateFaculty = Database.getConnection().prepareStatement("UPDATE cms.faculty SET faculty_name = ? ,  = ? where faculty_id = ?");
+        this.updateFaculty = Database.getConnection().prepareStatement("UPDATE cms.faculty SET faculty_name = ? , dept_id= ?,phone_number = ?,email=?,gender=?,address=?,birth_date=? where faculty_id = ?");
     }
     public static FacultyRepository getFacultyRepository() throws SQLException{
         if (facultyrepo == null) {
@@ -40,11 +40,17 @@ public class FacultyRepository {
     }
     public void updateFaculty(Faculty old,Faculty c)throws SQLException{
         this.updateFaculty.setString(1,c.getFacultyName());
-//        this.updateFaculty.setInt(2,c.getNoOfSemester());
-//        this.updateFaculty.setInt(3,c.getFacultyId());
+        this.updateFaculty.setInt(2,DepartmentRepository.getDeptRepository().getDepartmentId(c.getDeptName()));
+        this.updateFaculty.setString(3,c.getPhoneNumber());
+        this.updateFaculty.setString(4,c.getEmail());
+        this.updateFaculty.setString(5,c.getGender());
+        this.updateFaculty.setString(6,c.getAddress());
+        this.updateFaculty.setDate(7,Date.valueOf(c.getBirthdate()));
+        this.updateFaculty.setInt(8,old.getFacultyID());
         updateFaculty.execute();       
         int i = FACULTIES.indexOf(old);
         FACULTIES.remove(i);
+        c.setFacultyID(old.getFacultyID());
         FACULTY_NAME_LIST.removeIf( e -> e.equals(old.getFacultyName()));
         FACULTY_NAME_LIST.add(c.getFacultyName());
         FACULTIES.add(i,c);

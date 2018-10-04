@@ -13,3 +13,7 @@ AnchorPane{
     -fx-font-size:24px;
     -fx-font-family:'ShureTechMono Nerd Font';
 }
+.jfx-button:hover{
+    -fx-background-color:#501787;
+    -fx-text-fill:white;
+}

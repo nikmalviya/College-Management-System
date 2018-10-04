@@ -25,7 +25,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javax.swing.JPanel;
 import project.cms.classes.departments.Department;
 import project.cms.classes.departments.DepartmentRepository;
 import project.cms.coursesview.CourseviewController;
@@ -132,6 +131,7 @@ public class DepartmentsController implements Initializable {
             box.getChildren().remove(3);
             box.setSpacing(20);
             IsUpdateMode.set(false);
+            deptTableView.getSelectionModel().selectNext();
             return;
         }
         

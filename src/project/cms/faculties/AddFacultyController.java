@@ -14,10 +14,14 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -55,6 +59,10 @@ public class AddFacultyController implements Initializable {
     @FXML
     private JFXButton addFacultyBtn;
     private ToggleGroup gender;
+    private Faculty oldFaculty;
+    @FXML
+    private Label titleLabel;
+    private final BooleanProperty isUpdateMode = new SimpleBooleanProperty(false);
     /**
      * Initializes the controller class.
      * @param url
@@ -70,6 +78,15 @@ public class AddFacultyController implements Initializable {
         gender.selectToggle(maleRadio);
         cancelButton.setOnMouseClicked(this::closeWindow);
         addFacultyBtn.setOnMouseClicked(this::addFaculty);
+        isUpdateMode.addListener((ob,o,n) -> {
+            if (n) {
+                titleLabel.setText("Update Faculty");
+                addFacultyBtn.setText("Update Faculty");
+            }else{
+                titleLabel.setText("Add Faculty");
+                addFacultyBtn.setText("Add Faculty");
+            }
+        });
         try {
             deptcbx.setItems(DepartmentRepository.getDeptRepository().getDeptNameList());
         } catch (SQLException ex) {
@@ -90,10 +107,40 @@ public class AddFacultyController implements Initializable {
                                                     .setAddress(address.getText().trim())
                                                     .build();
         try {
+            if (isUpdateMode.get()) {
+                FacultyRepository.getFacultyRepository().updateFaculty(oldFaculty, faculty);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,"Faculty Updated SuccessFully...");
+                alert.show();
+                isUpdateMode.set(false);
+            }
+            else
             FacultyRepository.getFacultyRepository().addNewFaculty(faculty);
         } catch (SQLException ex) {
-            System.out.println("Cannot Add Faculty");
+            System.out.println("Cannot Add or Update Faculty");
+            System.out.println(ex.getMessage());
         }
         closeWindow(e);
+    }
+    public void setOldFaculty(Faculty f){
+        this.oldFaculty = f;
+    }
+    public void setUpdateMode(boolean mode){
+        isUpdateMode.set(mode);
+    }
+    public void initOldValues(){
+        fullName.setText(oldFaculty.getFacultyName());
+        email.setText(oldFaculty.getEmail());
+        phoneNumber.setText(oldFaculty.getPhoneNumber());
+        birthDate.setValue(oldFaculty.getBirthdate());
+        address.setText(oldFaculty.getAddress());
+        switch(oldFaculty.getGender().toLowerCase()){
+            case "male":
+                gender.selectToggle(maleRadio); break;
+            case "female":
+                gender.selectToggle(femaleRadio); break;
+            case "other": 
+                gender.selectToggle(otherRadio); break;
+        }
+        deptcbx.getSelectionModel().select(oldFaculty.getDeptName());
     }
 }

@@ -129,16 +129,14 @@ public class DashBoardController {
         });
         dashboardLabel.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         dashboardLabel.setAlignment(Pos.CENTER);
-        buttonsVBox.setSpacing(25);
         sidePane.setPrefWidth(sidePane.getWidth() - 130);   
     }
     public void maximize() {
         buttonsVBox.getChildren().forEach(e -> {
             JFXButton b = (JFXButton) e;
-            b.setContentDisplay(ContentDisplay.TOP);
+            b.setContentDisplay(ContentDisplay.LEFT);
         });
         dashboardLabel.setContentDisplay(ContentDisplay.LEFT);
-        buttonsVBox.setSpacing(0);
         sidePane.setPrefWidth(sidePane.getWidth() + 130);
         
     }

@@ -14,7 +14,7 @@
    <children>
       <AnchorPane layoutX="24.0" layoutY="32.0" prefHeight="70.0" prefWidth="200.0" styleClass="header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" text="Add Faculty" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+            <Label fx:id="titleLabel" alignment="CENTER" text="Add Faculty" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
          </children>
       </AnchorPane>
       <VBox layoutY="70.0" prefHeight="376.0" prefWidth="658.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">

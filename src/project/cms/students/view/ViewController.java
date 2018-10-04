@@ -36,10 +36,6 @@ public class ViewController implements Initializable {
     @FXML
     private Label course;
     @FXML
-    private Label className;
-    @FXML
-    private Label userName;
-    @FXML
     private Label lastName;
     @FXML
     private Label mothersName;
@@ -52,12 +48,16 @@ public class ViewController implements Initializable {
     @FXML
     private Label semester;
     @FXML
+    private JFXButton okButton;
+    private Tooltip addTooltip;
+    @FXML
+    private Label className;
+    @FXML
+    private Label userName;
+    @FXML
     private Label fees;
     @FXML
     private Label password;
-    @FXML
-    private JFXButton okButton;
-    private Tooltip addTooltip;
     /**
      * Initializes the controller class.
      */
