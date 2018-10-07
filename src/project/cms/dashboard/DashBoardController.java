@@ -1,9 +1,13 @@
 package project.cms.dashboard;
 
+import animatefx.animation.FadeInDown;
+import animatefx.animation.FadeInLeft;
+import animatefx.animation.LightSpeedIn;
+import animatefx.animation.Pulse;
+import animatefx.animation.RubberBand;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.beans.value.ObservableValue;
@@ -16,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class DashBoardController {
 
@@ -83,6 +88,10 @@ public class DashBoardController {
                 isMinimized=true;
             }
         });
+        setAnimation();
+        new FadeInLeft(sidePane).setDelay(Duration.seconds(0.5)).play();
+        new FadeInDown(headerPane).setDelay(Duration.seconds(0.5)).play();
+        new RubberBand(dashboardLabel).setDelay(Duration.seconds(2)).play();
     }
 
     private void openView(MouseEvent e, Windows type) {
@@ -120,8 +129,13 @@ public class DashBoardController {
         AnchorPane.setRightAnchor(node, 0d);
         contentNode.getChildren().clear();
         contentNode.getChildren().add(node);
+        new LightSpeedIn(node).play();
     }
-
+    public void setAnimation(){
+        buttonsVBox.getChildren().forEach( ex->{
+            ex.setOnMouseEntered(e-> new Pulse(ex).play());
+        });
+    }
     public void minimize() {
         buttonsVBox.getChildren().forEach(e -> {
             JFXButton b = (JFXButton) e;

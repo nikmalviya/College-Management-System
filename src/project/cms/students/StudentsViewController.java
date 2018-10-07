@@ -5,6 +5,7 @@
  */
 package project.cms.students;
 
+import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import project.cms.classes.courses.CourseRepository;
 import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.student.Student;
@@ -39,7 +43,7 @@ import project.cms.students.view.ViewController;
  * @author programmer
  */
 public class StudentsViewController implements Initializable {
-
+    
     @FXML
     private AnchorPane rootNode;
     @FXML
@@ -91,7 +95,7 @@ public class StudentsViewController implements Initializable {
     @FXML
     private TableColumn<Student, String> stateColumn;
     private static StudentRepository students;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         updateButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
@@ -99,11 +103,11 @@ public class StudentsViewController implements Initializable {
         deleteButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
         try {
             courseComboBox.setItems(CourseRepository.getCourseRepository().getCourseNameList());
-            semesterComboBox.setItems(SemesterRepository.getSemesterRepository().getSemesterNameList());
             students = StudentRepository.getStudentRepository();
         } catch (SQLException ex) {
             Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         initTableCellValueFactory();
         addStudentButton.setOnMouseClicked(this::openAddStudentWindow);
         deleteButton.setOnMouseClicked(this::deleteStudent);
@@ -111,14 +115,26 @@ public class StudentsViewController implements Initializable {
         updateButton.setOnMouseClicked(this::showUpdateWindow);
         studentsTableView.getItems().clear();
         studentsTableView.itemsProperty().set(students.getStudents());
-        studentsTableView.setOnMouseClicked(e->{
-            if (e.getClickCount()==2) {
+        studentsTableView.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
                 showViewWindow(e);
             }
         });
+        courseComboBox.setOnAction(this::loadSemesters);
         
     }
-
+    
+    public void loadSemesters(ActionEvent e) {
+        String selected = courseComboBox.getSelectionModel().getSelectedItem();
+        try {
+            int numOfSem = CourseRepository.getCourseRepository().getCourse(selected).getNoOfSemester();
+            int id = CourseRepository.getCourseRepository().getCourseId(selected);
+            semesterComboBox.setItems(SemesterRepository.getSemesterRepository().getSemesterNameList(numOfSem));
+        } catch (SQLException ex) {
+            Logger.getLogger(AddStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void openAddStudentWindow(MouseEvent e) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/addstudent/addStudent.fxml"));
         AnchorPane node = null;
@@ -130,8 +146,9 @@ public class StudentsViewController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(node));
         stage.show();
+        new FadeIn(node).play();
     }
-
+    
     private void initTableCellValueFactory() {
         studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -147,7 +164,7 @@ public class StudentsViewController implements Initializable {
         cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
     }
-
+    
     private void deleteStudent(MouseEvent e) {
         Student s = studentsTableView.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Dou you Really Want To Delete?");
@@ -162,9 +179,9 @@ public class StudentsViewController implements Initializable {
             }
         }
     }
-
+    
     private void showViewWindow(MouseEvent e) {
-
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/view/view.fxml"));
         AnchorPane pane = null;
         try {
@@ -178,7 +195,8 @@ public class StudentsViewController implements Initializable {
         stage.setScene(new Scene(pane));
         stage.show();
     }
-    private void showUpdateWindow(MouseEvent e){
+    
+    private void showUpdateWindow(MouseEvent e) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/addstudent/addStudent.fxml"));
         AnchorPane root = null;
         try {

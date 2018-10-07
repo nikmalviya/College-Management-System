@@ -55,11 +55,14 @@ public class CourseRepository {
         insertCourse.execute();
 //        int cid = s.getCourseId();String sql;
 //        for (int i = 1; i <=s.getNoOfSemester(); i++)
-//         Database.executeUpdate("INSERT INTO cms.course_with_sem values ("+cid+","+i+")");
+//        Database.executeUpdate("INSERT INTO cms.course_with_sem values ("+cid+","+i+")");
         COURSES.clear();
         COURSE_NAME_LIST.clear();
         initCoursesRepositary();
 
+    }
+    public Course getCourse(String courseName){
+        return COURSES.filtered(p -> p.getCourseName().equals(courseName)).get(0);
     }
     public String getCourseName(int id) throws SQLException{
         ResultSet rs = Database.executeQuery("select course_name from cms.course where course_id="+id);

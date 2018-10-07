@@ -21,8 +21,8 @@ public class SemesterRepository {
     public ObservableList<String> getSemesterNameList() {
         return SEMESTER_NAME_LIST;
     }
-    public ObservableList<String> getSemesterNameList(int course_id) throws SQLException{
-        String sql ="select semester_name from cms.semester s natural join cms.course_with_sem c  where course_id ="+course_id;
+    public ObservableList<String> getSemesterNameList(int limit) throws SQLException{
+        String sql ="select semester_name from cms.semester limit "+limit;
         ResultSet rs = Database.executeQuery(sql);
         ObservableList<String> list = FXCollections.observableArrayList();
         while(rs.next()){

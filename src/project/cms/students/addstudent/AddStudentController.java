@@ -9,6 +9,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import eu.hansolo.enzo.notification.Notification;
+import eu.hansolo.enzo.notification.NotificationBuilder;
+import eu.hansolo.enzo.notification.NotifierBuilder;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -29,7 +32,6 @@ import project.cms.classes.courses.CourseRepository;
 import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.student.Student;
 import project.cms.classes.student.StudentRepository;
-
 /**
  * FXML Controller class
  *
@@ -100,17 +102,17 @@ public class AddStudentController implements Initializable {
         addstudentbtn.setOnAction(this::addStudentToDatabase);
         cancelbtn.setOnAction(this::closeWindow);
         course.setOnAction(this::loadSemetsers);
-    }
-
-    private void loadClasses(ActionEvent e) {
-
+//        Notification n = NotificationBuilder.create().build();
+//        Notification.Notifier not  = NotifierBuilder.create().build();
+//        not.notify(n);
     }
 
     private void loadSemetsers(ActionEvent e) {
         String selected = course.getSelectionModel().getSelectedItem();
         try {
+            int numOfSem = CourseRepository.getCourseRepository().getCourse(selected).getNoOfSemester();
             int id = CourseRepository.getCourseRepository().getCourseId(selected);
-            semester.setItems(SemesterRepository.getSemesterRepository().getSemesterNameList(id));
+            semester.setItems(SemesterRepository.getSemesterRepository().getSemesterNameList(numOfSem));
         } catch (SQLException ex) {
             Logger.getLogger(AddStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -85,6 +85,7 @@ public class DepartmentsController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(CourseviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     private void initTableCellValueFactory() {
