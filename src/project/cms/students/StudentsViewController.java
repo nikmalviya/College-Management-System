@@ -5,7 +5,8 @@
  */
 package project.cms.students;
 
-import animatefx.animation.FadeIn;
+import animatefx.animation.FadeInDown;
+import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -13,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import javafx.stage.StageStyle;
 import project.cms.classes.courses.CourseRepository;
 import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.student.Student;
@@ -95,7 +95,7 @@ public class StudentsViewController implements Initializable {
     @FXML
     private TableColumn<Student, String> stateColumn;
     private static StudentRepository students;
-    
+    private AnchorPane temp;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         updateButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
@@ -144,9 +144,9 @@ public class StudentsViewController implements Initializable {
             System.out.println("Cannot Load add Student View");
         }
         Stage stage = new Stage();
-        stage.setScene(new Scene(node));
+        stage.setScene(new Scene(node));        
         stage.show();
-        new FadeIn(node).play();
+        new FadeInDown(node).play();
     }
     
     private void initTableCellValueFactory() {

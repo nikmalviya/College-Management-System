@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="330.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.cms.subjects.AddSubjectController">
+   <children>
+      <AnchorPane layoutX="24.0" layoutY="32.0" prefHeight="70.0" prefWidth="200.0" styleClass="header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="titleLabel" alignment="CENTER" text="Add Subject" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+         </children>
+      </AnchorPane>
+      <VBox layoutY="70.0" prefHeight="186.0" prefWidth="490.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <JFXTextField fx:id="subject" focusColor="#501787" labelFloat="true" promptText="Subject">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <ComboBox fx:id="facultyCBX" prefHeight="31.0" prefWidth="619.0" promptText="Select Faculty">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="15.0" />
+               </VBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="courseCBX" layoutX="30.0" layoutY="77.0" prefHeight="31.0" prefWidth="619.0" promptText="Select Course">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </ComboBox>
+         </children>
+      </VBox>
+      <JFXButton fx:id="cancelButton" layoutX="270.0" layoutY="266.0" prefHeight="34.0" prefWidth="163.0" text="Cancel" />
+      <JFXButton fx:id="addSubjectBtn" layoutX="57.0" layoutY="266.0" prefHeight="34.0" prefWidth="163.0" text="Add Subject" />
+   </children>
+   <stylesheets>
+      <URL value="@../students/addstudent/addstudent.css" />
+      <URL value="@../coursesview/courseview.css" />
+   </stylesheets>
+</AnchorPane>

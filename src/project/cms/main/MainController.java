@@ -5,15 +5,9 @@
  */
 package project.cms.main;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
@@ -23,33 +17,48 @@ import javafx.scene.input.MouseEvent;
  * @author programmer
  */
 public class MainController{
-    ResourceBundle resources;
-    URL location;
     @FXML
-    private TextField user;
+    private TextField num1;
     @FXML
-    private PasswordField password;
+    private TextField num2;
     @FXML
-    private Button loginbtn;
+    private Button plus;
     @FXML
-    private TextField msg;
+    private Button minus;
     @FXML
-    private Label clear;
+    private Button mul;
+    @FXML
+    private Button div;
 
     /**
      * Initializes the controller class.
      */
     public void initialize() {
-        
-    }    
+        plus.setOnMouseClicked(this::calulate);
+        minus.setOnMouseClicked(this::calulate);
+        mul.setOnMouseClicked(this::calulate);
+        div.setOnMouseClicked(this::calulate);
+    }   
 
-    @FXML
-    private void loginclicked(ActionEvent event) {
-        msg.setText("Login clicked...");
-        clear.setText("X");
-        clear.addEventFilter(MouseEvent.MOUSE_CLICKED,e -> {
-            msg.clear();
-        });
+   
+    public void calulate(MouseEvent e) {
+        int num1 = Integer.parseInt(this.num1.getText());
+        int num2 = Integer.parseInt(this.num2.getText());
+        int result =0;
+        Button b = (Button)e.getSource();
+        String opr = b.getText();
+        switch(opr){
+            case "+":
+                result = num1+num2; break;
+            case "-":
+                result = num1-num2; break;
+            case "/":
+                result = num1/num2; break;
+            case "*":
+                result = num1*num2; break;
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Result = "+result);
+        alert.show();
     }
     
 }

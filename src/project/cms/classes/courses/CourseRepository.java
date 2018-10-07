@@ -3,7 +3,6 @@ package project.cms.classes.courses;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import project.cms.classes.student.Student;
@@ -71,14 +70,10 @@ public class CourseRepository {
     }
     public int getCourseId(Student c) throws SQLException{
         String sql="select course_id from cms.course where course_name='"+c.getCourse()+"'";
-        System.out.println(sql);
         Database.getInstance();
         ResultSet rs = Database.executeQuery(sql);
-        int id=0;
-        while(rs.next()){
-            id = rs.getInt("course_id");
-        }
-        return id;
+        rs.next();
+        return rs.getInt("course_id");
     }
     public int getCourseId(String c) throws SQLException{
         String sql="select course_id from cms.course where course_name='"+c+"'";

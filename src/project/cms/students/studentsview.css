@@ -98,7 +98,7 @@ AnchorPane{
 .combo-box:focused .list-cell{
     -fx-text-fill: white;
 }
-.combo-box-base:hover .arrow{
+.combo-box-base:hover .arrow,.combo-box-base:focused .arrow{
     -fx-background-color:white;
 }
 .combo-box-base:hover{

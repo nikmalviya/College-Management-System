@@ -1,9 +1,9 @@
 package project.cms.dashboard;
 
+import animatefx.animation.FadeIn;
 import animatefx.animation.FadeInDown;
 import animatefx.animation.FadeInLeft;
-import animatefx.animation.LightSpeedIn;
-import animatefx.animation.Pulse;
+import animatefx.animation.JackInTheBox;
 import animatefx.animation.RubberBand;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
@@ -62,8 +62,9 @@ public class DashBoardController {
     private JFXButton department;
     @FXML
     private JFXButton subject;
-    private boolean isMinimized=false;
+    private boolean isMinimized = false;
     HamburgerNextArrowBasicTransition ham;
+
     public void initialize() throws IOException, SQLException {
         ham = new HamburgerNextArrowBasicTransition(sidemenuToggle);
         ham.setRate(-1);
@@ -71,27 +72,28 @@ public class DashBoardController {
         courses.setOnMouseClicked(e -> openView(e, Windows.COURSE));
         department.setOnMouseClicked(e -> openView(e, Windows.DEPARTMENT));
         faculty.setOnMouseClicked(e -> openView(e, Windows.FACULTY));
+        subject.setOnMouseClicked(e -> openView(e, Windows.SUBJECT));
         //settings.setOnAction(this::minimize);
         sidePane.widthProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             AnchorPane.setLeftAnchor(headerPane, newValue.doubleValue());
             AnchorPane.setLeftAnchor(contentNode, newValue.doubleValue());
         });
         sidemenuToggle.setCursor(Cursor.HAND);
-        sidemenuToggle.setOnMouseClicked(e->{
-            ham.setRate(ham.getRate()*-1);
+        sidemenuToggle.setOnMouseClicked(e -> {
+            ham.setRate(ham.getRate() * -1);
             ham.play();
-            if(isMinimized){
+            if (isMinimized) {
                 maximize();
-                isMinimized=false;
+                isMinimized = false;
             } else {
                 minimize();
-                isMinimized=true;
+                isMinimized = true;
             }
         });
         setAnimation();
-        new FadeInLeft(sidePane).setDelay(Duration.seconds(0.5)).play();
-        new FadeInDown(headerPane).setDelay(Duration.seconds(0.5)).play();
-        new RubberBand(dashboardLabel).setDelay(Duration.seconds(2)).play();
+        new FadeInLeft(sidePane).setDelay(Duration.seconds(0.3)).play();
+        new FadeInDown(headerPane).setDelay(Duration.seconds(0.3)).play();
+        new RubberBand(dashboardLabel).setDelay(Duration.seconds(1.5)).play();
     }
 
     private void openView(MouseEvent e, Windows type) {
@@ -113,7 +115,7 @@ public class DashBoardController {
                 location = "/project/cms/faculties/faculties.fxml";
                 break;
             case SUBJECT:
-                location = "/project/cms/students/subjects.fxml";
+                location = "/project/cms/subjects/subjectview.fxml";
                 break;
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource(location));
@@ -129,13 +131,15 @@ public class DashBoardController {
         AnchorPane.setRightAnchor(node, 0d);
         contentNode.getChildren().clear();
         contentNode.getChildren().add(node);
-        new LightSpeedIn(node).play();
+        new JackInTheBox(node).play();
     }
-    public void setAnimation(){
-        buttonsVBox.getChildren().forEach( ex->{
-            ex.setOnMouseEntered(e-> new Pulse(ex).play());
+
+    public void setAnimation() {
+        buttonsVBox.getChildren().forEach(ex -> {
+            ex.setOnMouseEntered(e -> new FadeIn(ex).play());
         });
     }
+
     public void minimize() {
         buttonsVBox.getChildren().forEach(e -> {
             JFXButton b = (JFXButton) e;
@@ -143,8 +147,9 @@ public class DashBoardController {
         });
         dashboardLabel.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         dashboardLabel.setAlignment(Pos.CENTER);
-        sidePane.setPrefWidth(sidePane.getWidth() - 130);   
+        sidePane.setPrefWidth(sidePane.getWidth() - 130);
     }
+
     public void maximize() {
         buttonsVBox.getChildren().forEach(e -> {
             JFXButton b = (JFXButton) e;
@@ -152,6 +157,6 @@ public class DashBoardController {
         });
         dashboardLabel.setContentDisplay(ContentDisplay.LEFT);
         sidePane.setPrefWidth(sidePane.getWidth() + 130);
-        
+
     }
 }
