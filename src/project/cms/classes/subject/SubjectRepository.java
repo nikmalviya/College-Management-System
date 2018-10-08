@@ -3,6 +3,7 @@ package project.cms.classes.subject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import project.cms.classes.courses.CourseRepository;
@@ -16,10 +17,13 @@ public class SubjectRepository {
     private static final ObservableList<String> SUBJECT_NAME_LIST = FXCollections.observableArrayList();
     private static SubjectRepository subjectrepo;
 
-    public ObservableList getSubjects() {
+    public ObservableList<Subject> getSubjects() {
         return SUBJECTS;
     }
-
+    public ObservableList<Subject> getSubjects(String course) {
+        
+        return SUBJECTS.filtered(e->true);
+    }
     public ObservableList<String> getSubjectNameList() {
         return SUBJECT_NAME_LIST;
     }

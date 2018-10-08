@@ -34,6 +34,8 @@ public class DashBoardController {
     private Label dashboardLabel;
     @FXML
     private JFXHamburger sidemenuToggle;
+    @FXML
+    private JFXButton exams;
 
     private enum Windows {
         HOME,
@@ -42,7 +44,8 @@ public class DashBoardController {
         DEPARTMENT,
         SUBJECT,
         FACULTY,
-        SETTINGS
+        SETTINGS,
+        EXAM
     }
     @FXML
     private JFXButton settings;
@@ -73,6 +76,7 @@ public class DashBoardController {
         department.setOnMouseClicked(e -> openView(e, Windows.DEPARTMENT));
         faculty.setOnMouseClicked(e -> openView(e, Windows.FACULTY));
         subject.setOnMouseClicked(e -> openView(e, Windows.SUBJECT));
+        exams.setOnMouseClicked(e -> openView(e, Windows.EXAM));
         //settings.setOnAction(this::minimize);
         sidePane.widthProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             AnchorPane.setLeftAnchor(headerPane, newValue.doubleValue());
@@ -116,6 +120,9 @@ public class DashBoardController {
                 break;
             case SUBJECT:
                 location = "/project/cms/subjects/subjectview.fxml";
+                break;
+            case EXAM:
+                location = "/project/cms/exams/examsview.fxml";
                 break;
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource(location));

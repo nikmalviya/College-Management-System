@@ -6,7 +6,6 @@
 package project.cms.students;
 
 import animatefx.animation.FadeInDown;
-import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +28,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import project.cms.classes.courses.CourseRepository;
 import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.student.Student;
@@ -42,7 +40,7 @@ import project.cms.students.view.ViewController;
  *
  * @author programmer
  */
-public class StudentsViewController implements Initializable {
+public class StudentsViewController implements Initializable{
     
     @FXML
     private AnchorPane rootNode;

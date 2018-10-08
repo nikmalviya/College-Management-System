@@ -151,6 +151,21 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
+                        <JFXButton fx:id="exams" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="278.0" prefHeight="40.0" prefWidth="225.0" text="Exams">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/exam.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="15.0" right="15.0" top="3.0" />
+                           </VBox.margin>
+                        </JFXButton>
                         <JFXButton fx:id="settings" alignment="BASELINE_LEFT" graphicTextGap="20.0" layoutX="25.0" layoutY="364.0" prefHeight="40.0" prefWidth="225.0" text="Settings">
                            <graphic>
                               <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">

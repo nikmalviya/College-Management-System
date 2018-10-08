@@ -5,7 +5,6 @@
  */
 package project.cms.subjects;
 
-import animatefx.animation.BounceOutDown;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -18,7 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import project.cms.classes.courses.CourseRepository;
 import project.cms.classes.faculty.FacultyRepository;
