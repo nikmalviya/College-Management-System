@@ -30,8 +30,6 @@ public class ExamsViewController implements Initializable {
     @FXML
     private AnchorPane rootNode;
     @FXML
-    private TextField searchTextField;
-    @FXML
     private JFXButton refreshButton;
     @FXML
     private JFXButton addExamButton;
@@ -56,6 +54,8 @@ public class ExamsViewController implements Initializable {
     @FXML
     private TableColumn<Exam,String> maxMarksCol;
     @FXML
+    private TextField searchTextField;
+    @FXML
     private TableColumn<?, ?> subjectCol;
 
     @Override
@@ -66,6 +66,7 @@ public class ExamsViewController implements Initializable {
         addExamButton.setOnMouseClicked(this::openAddExamWindow);
         deleteButton.setOnMouseClicked(this::deleteExam);
         updateButton.setOnMouseClicked(this::showUpdateWindow);
+        refreshButton.setOnMouseClicked(this::refresh);
         examTableView.getItems().clear();
         try {
             examTableView.itemsProperty().set(ExamRepository.getExamRepository().getExams());
@@ -128,5 +129,12 @@ public class ExamsViewController implements Initializable {
         new ZoomIn(node).play();
         stage.showAndWait();
         examTableView.getSelectionModel().selectNext();
+    }
+    private void refresh(MouseEvent e){
+        try {
+            ExamRepository.getExamRepository().refresh();
+        } catch (SQLException ex) {
+            Logger.getLogger(ExamsViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

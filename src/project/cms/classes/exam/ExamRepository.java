@@ -126,7 +126,8 @@ public class ExamRepository {
     private void initExamsRepositary() throws SQLException {
         Database.getInstance();
         ResultSet rs = Database.executeQuery("select * from cms.exam");
-
+        EXAMS.clear();
+        EXAM_NAME_LIST.clear();
         while (rs.next()) {
             ResultSet rs1 = Database.executeQuery("select * from cms.exam_subjects natural join cms.subject where exam_id = " + rs.getInt("exam_id"));
             Exam exam = new Exam(rs.getInt("exam_id"),
@@ -139,5 +140,8 @@ public class ExamRepository {
             EXAMS.add(exam);
             EXAM_NAME_LIST.add(rs.getString("exam_title"));
         }
+    }
+    public void refresh() throws SQLException{
+        initExamsRepositary();
     }
 }

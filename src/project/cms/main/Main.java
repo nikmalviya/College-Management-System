@@ -1,6 +1,10 @@
 
 package project.cms.main;
 
+import animatefx.animation.BounceInDown;
+import animatefx.animation.FadeIn;
+import animatefx.animation.FadeInDown;
+import animatefx.animation.JackInTheBox;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +23,9 @@ public class Main extends Application {
         CourseRepository.getCourseRepository();
         Parent root = FXMLLoader.load(getClass().getResource("/project/cms/dashboard/DashBoard.fxml"));
         stage.setMaximized(true);       
+        stage.setOnShown(e->{
+            new FadeIn(root).play();
+        });
         stage.setTitle("College Management System");
         stage.setScene(new Scene(root));
         stage.show();

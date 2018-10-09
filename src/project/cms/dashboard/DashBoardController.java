@@ -11,12 +11,14 @@ import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -36,6 +38,8 @@ public class DashBoardController {
     private JFXHamburger sidemenuToggle;
     @FXML
     private JFXButton exams;
+    @FXML
+    private JFXButton marks;
 
     private enum Windows {
         HOME,
@@ -45,7 +49,8 @@ public class DashBoardController {
         SUBJECT,
         FACULTY,
         SETTINGS,
-        EXAM
+        EXAM,
+        MARKS
     }
     @FXML
     private JFXButton settings;
@@ -71,13 +76,14 @@ public class DashBoardController {
     public void initialize() throws IOException, SQLException {
         ham = new HamburgerNextArrowBasicTransition(sidemenuToggle);
         ham.setRate(-1);
-        student.setOnMouseClicked(e -> openView(e, Windows.STUDENT));
-        courses.setOnMouseClicked(e -> openView(e, Windows.COURSE));
-        department.setOnMouseClicked(e -> openView(e, Windows.DEPARTMENT));
-        faculty.setOnMouseClicked(e -> openView(e, Windows.FACULTY));
-        subject.setOnMouseClicked(e -> openView(e, Windows.SUBJECT));
-        exams.setOnMouseClicked(e -> openView(e, Windows.EXAM));
-        //settings.setOnAction(this::minimize);
+        student.setOnMouseClicked(e -> openView(Windows.STUDENT));
+        courses.setOnMouseClicked(e -> openView(Windows.COURSE));
+        department.setOnMouseClicked(e -> openView(Windows.DEPARTMENT));
+        faculty.setOnMouseClicked(e -> openView(Windows.FACULTY));
+        subject.setOnMouseClicked(e -> openView(Windows.SUBJECT));
+        exams.setOnMouseClicked(e -> openView(Windows.EXAM));
+        marks.setOnMouseClicked(e -> openView(Windows.MARKS));
+        home.setOnMouseClicked(e -> openView(Windows.HOME));
         sidePane.widthProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             AnchorPane.setLeftAnchor(headerPane, newValue.doubleValue());
             AnchorPane.setLeftAnchor(contentNode, newValue.doubleValue());
@@ -94,17 +100,18 @@ public class DashBoardController {
                 isMinimized = true;
             }
         });
+        openView(Windows.HOME);
         setAnimation();
         new FadeInLeft(sidePane).setDelay(Duration.seconds(0.3)).play();
         new FadeInDown(headerPane).setDelay(Duration.seconds(0.3)).play();
         new RubberBand(dashboardLabel).setDelay(Duration.seconds(1.5)).play();
     }
 
-    private void openView(MouseEvent e, Windows type) {
+    private void openView(Windows type) {
         String location = null;
         switch (type) {
             case HOME:
-                location = "/project/cms/students/home.fxml";
+                location = "/project/cms/home/home.fxml";
                 break;
             case STUDENT:
                 location = "/project/cms/students/studentsview.fxml";
@@ -124,6 +131,9 @@ public class DashBoardController {
             case EXAM:
                 location = "/project/cms/exams/examsview.fxml";
                 break;
+            case MARKS:
+                location = "/project/cms/exammarks/examMarks.fxml";
+                break;    
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource(location));
         AnchorPane node = null;

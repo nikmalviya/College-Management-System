@@ -99,4 +99,10 @@ public class CourseRepository {
             COURSE_NAME_LIST.add(rs.getString("course_name"));
         }
     }
+    public int getCount() throws SQLException{
+        String sql ="select count(*) as count from cms.course";
+        ResultSet rs = Database.executeQuery(sql);
+        rs.next();
+        return rs.getInt("count");
+    }
 }

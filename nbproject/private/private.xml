@@ -3,12 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/StudentsViewController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/home/home.fxml</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/exams/ExamsViewController.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/exams/AddExamController.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/subjects/SubjectViewController.java</file>
-            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/subjects/AddSubjectController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/courses/CourseRepository.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/main/Main.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/dashboard/DashBoardController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/faculties/faculties.css</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/students/studentsview.css</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/exammarks/ExamMarksController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/home/home.css</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/exams/addExam.fxml</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/faculty/FacultyRepository.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/exammarks/examMarks.fxml</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/student/StudentRepository.java</file>
             <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/exam/ExamRepository.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/home/HomeController.java</file>
+            <file>file:/home/programmer/Documents/Java%20Project/College%20Management%20System/src/project/cms/classes/departments/DepartmentRepository.java</file>
         </group>
     </open-files>
 </project-private>

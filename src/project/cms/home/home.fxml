@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="rootNode" prefHeight="718.0" prefWidth="1141.0" styleClass="anchor-pane" stylesheets="@../students/studentsview.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.cms.home.HomeController">
+   <children>
+      <AnchorPane fx:id="header" prefHeight="145.0" prefWidth="1141.0" style="-fx-background-color: #501787;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="title" layoutX="355.0" layoutY="92.0" style="-fx-text-fill: white;" styleClass="heading" text="College Management System" />
+         </children>
+      </AnchorPane>
+      <Pane fx:id="logo" layoutX="141.0" layoutY="56.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
+         <children>
+            <ImageView fitHeight="99.0" fitWidth="120.0" layoutX="26.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/college-dark.png" />
+               </image>
+            </ImageView>
+         </children>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#1f0936" height="46.805" radius="22.52375" spread="0.1" width="45.29" />
+         </effect>
+      </Pane>
+      <Label fx:id="welcome" alignment="CENTER" layoutY="145.0" prefHeight="58.0" prefWidth="1141.0" styleClass="heading" text="Welcome!!" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0" />
+      <GridPane alignment="CENTER" hgap="50.0" layoutX="180.0" layoutY="203.0" prefHeight="448.0" prefWidth="781.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="180.0">
+         <columnConstraints>
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Pane fx:id="students" layoutX="210.0" layoutY="280.0" prefHeight="190.0" prefWidth="240.0" style="-fx-background-color: #501787; -fx-background-radius: 20px;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: white;" styleClass="heading" text="Students " />
+                  <Label fx:id="studentCount" layoutX="14.0" layoutY="68.0" prefHeight="108.0" prefWidth="139.0" style="-fx-text-fill: white;" styleClass="count" text="0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="100.0" fitWidth="125.0" layoutX="120.0" layoutY="70.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/student-big.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="faculties" layoutX="578.0" layoutY="291.0" prefHeight="200.0" prefWidth="240.0" style="-fx-background-color: #501787; -fx-background-radius: 20px;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: white;" styleClass="heading" text="Faculties" />
+                  <Label fx:id="facultyCount" layoutX="14.0" layoutY="68.0" prefHeight="108.0" prefWidth="139.0" style="-fx-text-fill: white;" styleClass="count" text="0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="100.0" fitWidth="125.0" layoutX="120.0" layoutY="70.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/teacher-big.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="departments" layoutX="504.0" layoutY="463.0" prefHeight="200.0" prefWidth="240.0" style="-fx-background-color: #501787; -fx-background-radius: 20px;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: white;" styleClass="heading" text="Departments" />
+                  <Label fx:id="deptCount" layoutX="14.0" layoutY="68.0" prefHeight="108.0" prefWidth="139.0" style="-fx-text-fill: white;" styleClass="count" text="0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="100.0" fitWidth="125.0" layoutX="120.0" layoutY="70.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/department-big.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="courses" layoutX="162.0" layoutY="490.0" prefHeight="200.0" prefWidth="240.0" style="-fx-background-color: #501787; -fx-background-radius: 20px;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: white;" styleClass="heading" text="Courses" />
+                  <Label fx:id="coursesCount" layoutX="14.0" layoutY="68.0" prefHeight="108.0" prefWidth="139.0" style="-fx-text-fill: white;" styleClass="count" text="0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="100.0" fitWidth="125.0" layoutX="120.0" layoutY="70.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/course-big.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+   </children>
+   <stylesheets>
+       <URL value="@home.css"/>
+   </stylesheets>
+</AnchorPane>

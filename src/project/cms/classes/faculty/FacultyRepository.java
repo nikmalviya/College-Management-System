@@ -113,4 +113,11 @@ public class FacultyRepository {
             FACULTY_ID_NAME_LIST.add("ID:- "+faculty.getFacultyID()+" "+faculty.getFacultyName());
         }
     }
+    public int getCount() throws SQLException{
+        String sql ="select count(*) as count from cms.faculty";
+        ResultSet rs = Database.executeQuery(sql);
+        rs.next();
+        return rs.getInt("count");
+        
+    }
 }

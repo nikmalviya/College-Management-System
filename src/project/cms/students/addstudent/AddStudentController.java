@@ -5,14 +5,10 @@
  */
 package project.cms.students.addstudent;
 
-import animatefx.animation.BounceOutDown;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import eu.hansolo.enzo.notification.Notification;
-import eu.hansolo.enzo.notification.NotificationBuilder;
-import eu.hansolo.enzo.notification.NotifierBuilder;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -21,7 +17,9 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -29,6 +27,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
 import project.cms.classes.courses.CourseRepository;
 import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.student.Student;
@@ -103,6 +102,12 @@ public class AddStudentController implements Initializable {
         addstudentbtn.setOnAction(this::addStudentToDatabase);
         cancelbtn.setOnAction(this::closeWindow);
         course.setOnAction(this::loadSemetsers);
+        Notifications not = Notifications.create();
+        not.position(Pos.BASELINE_RIGHT);
+        not.text("Hello World");
+        not.title("Nikhil");
+        not.showConfirm();
+        
 //        Notification n = NotificationBuilder.create().build();
 //        Notification.Notifier not  = NotifierBuilder.create().build();
 //        not.notify(n);

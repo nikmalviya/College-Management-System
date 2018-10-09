@@ -83,4 +83,11 @@ public class DepartmentRepository {
             DEPT_NAME_LIST.add(rs.getString("dept_name"));
         }
     }
+    public int getCount() throws SQLException{
+        String sql ="select count(*) as count from cms.department";
+        ResultSet rs = Database.executeQuery(sql);
+        rs.next();
+        return rs.getInt("count");
+        
+    }
 }
