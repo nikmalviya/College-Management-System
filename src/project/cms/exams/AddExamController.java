@@ -59,9 +59,9 @@ public class AddExamController implements Initializable {
     @FXML
     private TableColumn<ExamSubject, String> subjectCol;
     @FXML
-    private TableColumn<ExamSubject,String> maxMarksCol;
+    private TableColumn<ExamSubject, String> maxMarksCol;
     @FXML
-    private TableColumn<ExamSubject,String> dateCol;
+    private TableColumn<ExamSubject, String> dateCol;
     @FXML
     private ComboBox<String> subjectCBX;
     @FXML
@@ -79,24 +79,26 @@ public class AddExamController implements Initializable {
     private final ObservableList<ExamSubject> subjects = FXCollections.observableArrayList();
     private final BooleanProperty isUpdateMode = new SimpleBooleanProperty(false);
     private Exam old;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        isUpdateMode.addListener((ob,o,n) -> {
+        
+        isUpdateMode.addListener((ob, o, n) -> {
             if (n) {
                 titleLabel.setText("Update Exam");
                 addSubjectBtn.setText("Update Exam");
-            }else{
+            } else {
                 titleLabel.setText("Add Exam");
                 addSubjectBtn.setText("Add Exam");
             }
         });
-        subjectsTableView.setOnContextMenuRequested(e->{
-            menu.show(subjectsTableView,e.getScreenX(),e.getScreenY());
+        subjectsTableView.setOnContextMenuRequested(e -> {
+            menu.show(subjectsTableView, e.getScreenX(), e.getScreenY());
         });
-        menuitem.setOnAction(e->{
+        menuitem.setOnAction(e -> {
             subjects.remove(subjectsTableView.getSelectionModel().getSelectedItem());
         });
-        
+
         menu.getItems().add(menuitem);
         cancelButton.setOnMouseClicked(this::closeWindow);
         initSubjectTableCellFactory();
@@ -109,13 +111,14 @@ public class AddExamController implements Initializable {
         subjectsTableView.setItems(subjects);
         plusLabel.setOnMouseClicked(this::addToTable);
         addSubjectBtn.setOnMouseClicked(this::addExam);
-        
+
     }
+
     public void loadOnCourseClicked(ActionEvent e) {
         String selected = courseCBX.getSelectionModel().getSelectedItem();
         try {
             ObservableList<String> list = FXCollections.observableArrayList();
-            ObservableList<Subject> list1 =SubjectRepository.getSubjectRepository().getSubjects().filtered(s -> s.getCourseName().equals(courseCBX.getSelectionModel().getSelectedItem()));
+            ObservableList<Subject> list1 = SubjectRepository.getSubjectRepository().getSubjects().filtered(s -> s.getCourseName().equals(courseCBX.getSelectionModel().getSelectedItem()));
             list1.forEach(subject -> {
                 list.add(subject.getSubject());
             });
@@ -127,35 +130,41 @@ public class AddExamController implements Initializable {
             Logger.getLogger(AddStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void initSubjectTableCellFactory(){
+
+    private void initSubjectTableCellFactory() {
         subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
         maxMarksCol.setCellValueFactory(new PropertyValueFactory<>("maxMarks"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
     }
-    private void addToTable(MouseEvent e){
-        subjects.add(new ExamSubject(subjectCBX.getSelectionModel().getSelectedItem(),Integer.parseInt(maxMarks.getText()),examDate.getValue()));
+
+    private void addToTable(MouseEvent e) {
+        subjects.add(new ExamSubject(subjectCBX.getSelectionModel().getSelectedItem(), Integer.parseInt(maxMarks.getText()), examDate.getValue()));
     }
-    private void closeWindow(MouseEvent e){
-        Stage s = (Stage)cancelButton.getScene().getWindow();
+
+    private void closeWindow(MouseEvent e) {
+        Stage s = (Stage) cancelButton.getScene().getWindow();
         s.close();
     }
-    private void addExam(MouseEvent e){
+
+    private void addExam(MouseEvent e) {
         String course = courseCBX.getSelectionModel().getSelectedItem();
         String exam = examTitle.getText().trim();
         String sem = semCBX.getSelectionModel().getSelectedItem();
         Exam ex = new Exam(course, exam, sem);
         ex.getSubjects().addAll(subjects);
         try {
-            if(isUpdateMode.get())
+            if (isUpdateMode.get()) {
                 ExamRepository.getExamRepository().updateExam(old, ex);
-            else
+            } else {
                 ExamRepository.getExamRepository().addNewExam(ex);
+            }
         } catch (SQLException ex1) {
-            System.out.println("Cannot add Exam"+ex1.getMessage());
+            System.out.println("Cannot add Exam" + ex1.getMessage());
         }
         closeWindow(e);
     }
-    public void initExam(Exam e){
+
+    public void initExam(Exam e) {
         old = e;
         isUpdateMode.set(true);
         examTitle.setText(e.getExamTitle());
@@ -163,5 +172,5 @@ public class AddExamController implements Initializable {
         semCBX.getSelectionModel().select(e.getSemester());
         subjects.addAll(e.getSubjects());
     }
-    
+
 }

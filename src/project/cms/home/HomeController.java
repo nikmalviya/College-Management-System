@@ -1,6 +1,10 @@
 package project.cms.home;
 
+import animatefx.animation.BounceIn;
 import animatefx.animation.FadeIn;
+import animatefx.animation.RubberBand;
+import animatefx.animation.ZoomIn;
+import animatefx.animation.ZoomInDown;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -8,8 +12,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import project.cms.classes.courses.CourseRepository;
@@ -45,9 +51,13 @@ public class HomeController implements Initializable {
     private Pane courses;
     @FXML
     private Label coursesCount;
+    @FXML
+    private GridPane grid;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {        
+        logo.setCursor(Cursor.HAND);
+        logo.setOnMouseClicked(e-> new RubberBand(logo).play());
         try {
             studentCount.setText(String.valueOf(StudentRepository.getStudentRepository().getCount()));
             coursesCount.setText(String.valueOf(CourseRepository.getCourseRepository().getCount()));
@@ -56,7 +66,10 @@ public class HomeController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new FadeIn(logo).setDelay(Duration.seconds(2)).play();
+        new BounceIn(title).setDelay(Duration.seconds(0.8)).play();
+        new ZoomIn(welcome).setDelay(Duration.seconds(0.8)).play();
+        new ZoomInDown(grid).setDelay(Duration.seconds(0.8)).play();
+        new FadeIn(logo).setDelay(Duration.seconds(1.5)).play();
     }    
     
 }

@@ -74,6 +74,10 @@ public class DashBoardController {
     HamburgerNextArrowBasicTransition ham;
 
     public void initialize() throws IOException, SQLException {
+        dashboardLabel.setCursor(Cursor.HAND);
+        dashboardLabel.setOnMouseClicked(e->{
+        new RubberBand(dashboardLabel).play();    
+        });
         ham = new HamburgerNextArrowBasicTransition(sidemenuToggle);
         ham.setRate(-1);
         student.setOnMouseClicked(e -> openView(Windows.STUDENT));
@@ -148,7 +152,11 @@ public class DashBoardController {
         AnchorPane.setRightAnchor(node, 0d);
         contentNode.getChildren().clear();
         contentNode.getChildren().add(node);
+        if(type != Windows.HOME)
         new JackInTheBox(node).play();
+        else{
+            new FadeIn(node).play();
+        }
     }
 
     public void setAnimation() {
