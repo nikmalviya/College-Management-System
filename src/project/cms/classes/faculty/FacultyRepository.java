@@ -21,9 +21,11 @@ public class FacultyRepository {
     public ObservableList getFaculties() {
         return FACULTIES;
     }
-    public ObservableList getFacultyIdNameList(){
+
+    public ObservableList getFacultyIdNameList() {
         return FACULTY_ID_NAME_LIST;
     }
+
     private FacultyRepository() throws SQLException {
         initFacultysRepositary();
         this.insertFaculty = Database.getConnection().prepareStatement("INSERT INTO cms.faculty VALUES (null,?,?,?,?,?,?,?)");
@@ -50,11 +52,11 @@ public class FacultyRepository {
         updateFaculty.execute();
         int i1 = FACULTIES.indexOf(old);
         FACULTIES.remove(i1);
-        int i2 = FACULTY_ID_NAME_LIST.indexOf("ID:- "+old.getFacultyID()+" "+old.getFacultyName());
+        int i2 = FACULTY_ID_NAME_LIST.indexOf("ID:- " + old.getFacultyID() + " " + old.getFacultyName());
         FACULTY_ID_NAME_LIST.remove(i2);
         c.setFacultyID(old.getFacultyID());
         FACULTIES.add(i1, c);
-        FACULTY_ID_NAME_LIST.add(i2,"ID:- "+c.getFacultyID()+" "+c.getFacultyName());
+        FACULTY_ID_NAME_LIST.add(i2, "ID:- " + c.getFacultyID() + " " + c.getFacultyName());
     }
 
     public void addNewFaculty(Faculty f) throws SQLException {
@@ -93,7 +95,7 @@ public class FacultyRepository {
         deleteFaculty.setInt(1, f.getFacultyID());
         deleteFaculty.execute();
         FACULTIES.remove(f);
-        FACULTY_ID_NAME_LIST.remove("ID:-"+f.getFacultyID()+" "+f.getFacultyName());
+        FACULTY_ID_NAME_LIST.remove("ID:-" + f.getFacultyID() + " " + f.getFacultyName());
     }
 
     private void initFacultysRepositary() throws SQLException {
@@ -110,14 +112,20 @@ public class FacultyRepository {
                     .setBirthDate(rs.getDate("birth_date").toLocalDate())
                     .build();
             FACULTIES.add(faculty);
-            FACULTY_ID_NAME_LIST.add("ID:- "+faculty.getFacultyID()+" "+faculty.getFacultyName());
+            FACULTY_ID_NAME_LIST.add("ID:- " + faculty.getFacultyID() + " " + faculty.getFacultyName());
         }
     }
-    public int getCount() throws SQLException{
-        String sql ="select count(*) as count from cms.faculty";
+
+    public int getCount() throws SQLException {
+        String sql = "select count(*) as count from cms.faculty";
         ResultSet rs = Database.executeQuery(sql);
         rs.next();
         return rs.getInt("count");
-        
+
+    }
+    public void refresh() throws SQLException{
+        FACULTIES.clear();
+        FACULTY_ID_NAME_LIST.clear();
+        initFacultysRepositary();
     }
 }

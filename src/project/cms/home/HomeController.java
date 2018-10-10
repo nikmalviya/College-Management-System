@@ -66,10 +66,10 @@ public class HomeController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new BounceIn(title).setDelay(Duration.seconds(0.8)).play();
-        new ZoomIn(welcome).setDelay(Duration.seconds(0.8)).play();
-        new ZoomInDown(grid).setDelay(Duration.seconds(0.8)).play();
-        new FadeIn(logo).setDelay(Duration.seconds(1.5)).play();
+        new BounceIn(title).setDelay(Duration.seconds(1)).play();
+        new ZoomIn(welcome).setDelay(Duration.seconds(1)).play();
+        new ZoomInDown(grid).setDelay(Duration.seconds(1)).play();
+        new FadeIn(logo).setDelay(Duration.seconds(2)).play();
     }    
     
 }

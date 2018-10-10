@@ -24,30 +24,33 @@ public class CourseRepository {
     public ObservableList<String> getCourseNameList() {
         return COURSE_NAME_LIST;
     }
-    
+
     private CourseRepository() throws SQLException {
         initCoursesRepositary();
         this.insertCourse = Database.getConnection().prepareStatement("INSERT INTO cms.course (course_name,no_of_sem) VALUES (?,?)");
         this.deleteCourse = Database.getConnection().prepareStatement("DELETE FROM cms.course where course_id = ?");
         this.updateCourse = Database.getConnection().prepareStatement("UPDATE cms.course SET course_name = ? , no_of_sem = ? where course_id = ?");
     }
-    public static CourseRepository getCourseRepository() throws SQLException{
+
+    public static CourseRepository getCourseRepository() throws SQLException {
         if (coursesrepo == null) {
             coursesrepo = new CourseRepository();
         }
         return coursesrepo;
     }
-    public void updateCourse(Course old,Course c)throws SQLException{
-        this.updateCourse.setString(1,c.getCourseName());
-        this.updateCourse.setInt(2,c.getNoOfSemester());
-        this.updateCourse.setInt(3,c.getCourseId());
-        updateCourse.execute();       
+
+    public void updateCourse(Course old, Course c) throws SQLException {
+        this.updateCourse.setString(1, c.getCourseName());
+        this.updateCourse.setInt(2, c.getNoOfSemester());
+        this.updateCourse.setInt(3, c.getCourseId());
+        updateCourse.execute();
         int i = COURSES.indexOf(old);
         COURSES.remove(i);
-        COURSE_NAME_LIST.removeIf( e -> e.equals(old.getCourseName()));
+        COURSE_NAME_LIST.removeIf(e -> e.equals(old.getCourseName()));
         COURSE_NAME_LIST.add(c.getCourseName());
-        COURSES.add(i,c);
+        COURSES.add(i, c);
     }
+
     public void addNewCourse(Course s) throws SQLException {
         insertCourse.setString(1, s.getCourseName());
         insertCourse.setInt(2, s.getNoOfSemester());
@@ -60,49 +63,62 @@ public class CourseRepository {
         initCoursesRepositary();
 
     }
-    public Course getCourse(String courseName){
+
+    public Course getCourse(String courseName) {
         return COURSES.filtered(p -> p.getCourseName().equals(courseName)).get(0);
     }
-    public String getCourseName(int id) throws SQLException{
-        ResultSet rs = Database.executeQuery("select course_name from cms.course where course_id="+id);
+
+    public String getCourseName(int id) throws SQLException {
+        ResultSet rs = Database.executeQuery("select course_name from cms.course where course_id=" + id);
         rs.next();
         return rs.getString("course_name");
     }
-    public int getCourseId(Student c) throws SQLException{
-        String sql="select course_id from cms.course where course_name='"+c.getCourse()+"'";
+
+    public int getCourseId(Student c) throws SQLException {
+        String sql = "select course_id from cms.course where course_name='" + c.getCourse() + "'";
         Database.getInstance();
         ResultSet rs = Database.executeQuery(sql);
         rs.next();
         return rs.getInt("course_id");
     }
-    public int getCourseId(String c) throws SQLException{
-        String sql="select course_id from cms.course where course_name='"+c+"'";
+
+    public int getCourseId(String c) throws SQLException {
+        String sql = "select course_id from cms.course where course_name='" + c + "'";
         Database.getInstance();
         ResultSet rs = Database.executeQuery(sql);
-        int id=0;
-        while(rs.next()){
+        int id = 0;
+        while (rs.next()) {
             id = rs.getInt("course_id");
         }
         return id;
     }
-    public void deleteCourse(Course s) throws SQLException{
-        deleteCourse.setInt(1,s.getCourseId());
+
+    public void deleteCourse(Course s) throws SQLException {
+        deleteCourse.setInt(1, s.getCourseId());
         deleteCourse.execute();
         COURSES.remove(s);
         COURSE_NAME_LIST.remove(s.getCourseName());
     }
+
     private void initCoursesRepositary() throws SQLException {
         Database.getInstance();
         ResultSet rs = Database.executeQuery("select * from cms.course");
         while (rs.next()) {
-            COURSES.add(new Course(rs.getInt("course_id"),rs.getString("course_name"),rs.getInt("no_of_sem")));
+            COURSES.add(new Course(rs.getInt("course_id"), rs.getString("course_name"), rs.getInt("no_of_sem")));
             COURSE_NAME_LIST.add(rs.getString("course_name"));
         }
     }
-    public int getCount() throws SQLException{
-        String sql ="select count(*) as count from cms.course";
+
+    public int getCount() throws SQLException {
+        String sql = "select count(*) as count from cms.course";
         ResultSet rs = Database.executeQuery(sql);
         rs.next();
         return rs.getInt("count");
+    }
+
+    public void refresh() throws SQLException {
+        COURSES.clear();
+        COURSE_NAME_LIST.clear();
+        initCoursesRepositary();
     }
 }

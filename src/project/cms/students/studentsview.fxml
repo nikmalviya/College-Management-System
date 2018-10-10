@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -20,7 +21,7 @@
                   <HBox alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="944.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
                         <JFXButton fx:id="addStudentButton" layoutX="839.0" layoutY="28.0" text="Add Student" />
-                        <JFXButton fx:id="addMultipleStudentButton" layoutX="740.0" layoutY="28.0" text="Add Multiple Students">
+                        <JFXButton fx:id="addMultipleStudentButton" disable="true" layoutX="740.0" layoutY="28.0" text="Add Multiple Students">
                            <HBox.margin>
                               <Insets right="350.0" />
                            </HBox.margin>
@@ -55,7 +56,14 @@
                         <HBox alignment="CENTER" prefHeight="44.0" prefWidth="944.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
                               <TextField fx:id="searchTextField" prefHeight="31.0" prefWidth="608.0" />
-                              <JFXButton fx:id="refreshButton" text="  " />
+                              <JFXButton fx:id="refreshButton" contentDisplay="GRAPHIC_ONLY" styleClass="refreshButton" text="  ">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/refresh.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></JFXButton>
                            </children>
                         </HBox>
                      </top>

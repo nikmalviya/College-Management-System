@@ -15,24 +15,29 @@ import javafx.beans.property.StringProperty;
  * @author programmer
  */
 public class Semester {
+
     private final IntegerProperty semesterId = new SimpleIntegerProperty();
     private final IntegerProperty courseID = new SimpleIntegerProperty();
     private final StringProperty semesterName = new SimpleStringProperty();
 
-    public Semester(int semesterId,String semesterName) {
+    public Semester(int semesterId, String semesterName) {
         this.semesterId.set(semesterId);
         this.semesterName.set(semesterName);
-        
+
     }
-    public void setSemesterId(int id){
+
+    public void setSemesterId(int id) {
         this.semesterId.set(id);
     }
-    public void setSemesterName(String semesterName){
+
+    public void setSemesterName(String semesterName) {
         this.semesterName.set(semesterName);
     }
+
     public int getSemesterId() {
         return semesterId.get();
     }
+
     public String getSemesterName() {
         return semesterName.get();
     }

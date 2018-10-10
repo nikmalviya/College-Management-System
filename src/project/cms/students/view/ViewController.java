@@ -58,6 +58,7 @@ public class ViewController implements Initializable {
     private Label fees;
     @FXML
     private Label password;
+
     /**
      * Initializes the controller class.
      */
@@ -65,7 +66,8 @@ public class ViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         okButton.setOnMouseClicked(this::closeWindow);
     }
-    public void setStudent(Student s){
+
+    public void setStudent(Student s) {
         firstName.setText(s.getFirstName());
         lastName.setText(s.getLastName());
         address.setText(s.getAddress());
@@ -81,9 +83,10 @@ public class ViewController implements Initializable {
         email.setText(s.getEmail());
         semester.setText(s.getSemester());
     }
-    private void closeWindow(MouseEvent e){
-        Stage s = (Stage)((JFXButton)e.getSource()).getScene().getWindow();
+
+    private void closeWindow(MouseEvent e) {
+        Stage s = (Stage) ((JFXButton) e.getSource()).getScene().getWindow();
         s.close();
     }
-    
+
 }

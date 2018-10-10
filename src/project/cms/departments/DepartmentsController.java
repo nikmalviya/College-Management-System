@@ -10,10 +10,13 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -22,12 +25,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import project.cms.classes.departments.Department;
 import project.cms.classes.departments.DepartmentRepository;
 import project.cms.coursesview.CourseviewController;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -67,6 +75,14 @@ public class DepartmentsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        searchTextField.setOnKeyReleased(this::search);
+        refreshButton.setOnMouseClicked(e -> {
+            try {
+                DepartmentRepository.getDeptRepository().refresh();
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartmentsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         updateButton.disableProperty().bind(deptTableView.getSelectionModel().selectedItemProperty().isNull());
         deleteButton.disableProperty().bind(deptTableView.getSelectionModel().selectedItemProperty().isNull());
         addDeptButton.disableProperty().bind(IsUpdateMode);
@@ -85,7 +101,7 @@ public class DepartmentsController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(CourseviewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     private void initTableCellValueFactory() {
@@ -99,7 +115,11 @@ public class DepartmentsController implements Initializable {
         } catch (SQLException ex) {
             System.err.println("Cannot Add Department ....");
             System.err.println(ex.getMessage());
+            return;
         }
+        TrayNotification n = new TrayNotification("Success", "Department Added SuccessFully", NotificationType.SUCCESS);
+        n.setAnimationType(AnimationType.POPUP);
+        n.showAndDismiss(Duration.seconds(3));
         deptTextField.clear();
     }
 
@@ -109,11 +129,14 @@ public class DepartmentsController implements Initializable {
         try {
             if (alert.getResult() == ButtonType.OK) {
                 DepartmentRepository.getDeptRepository().deleteDepartment(deptTableView.getSelectionModel().getSelectedItem());
-                alert.setAlertType(Alert.AlertType.INFORMATION);
-                alert.setContentText("Department Deleted Successfully..");
-                alert.show();
+                TrayNotification n = new TrayNotification("Success", "Department Deleted SuccessFully", NotificationType.SUCCESS);
+                n.setAnimationType(AnimationType.POPUP);
+                n.showAndDismiss(Duration.seconds(3));
             }
         } catch (SQLException ex) {
+            TrayNotification n = new TrayNotification("ERROR", "Department Cannot be Deleted", NotificationType.ERROR);
+                        n.setAnimationType(AnimationType.POPUP);
+                        n.showAndDismiss(Duration.seconds(3));
             System.err.println("Cannot Delete Department ....");
             System.err.println(ex.getMessage());
         }
@@ -127,15 +150,18 @@ public class DepartmentsController implements Initializable {
             } catch (SQLException ex) {
                 System.err.println("Cannot add Department");
                 System.err.println(ex.getMessage());
+                return;
             }
             deptTextField.clear();
             box.getChildren().remove(3);
             box.setSpacing(20);
             IsUpdateMode.set(false);
+            TrayNotification n = new TrayNotification("Success", "Department Updated SuccessFully", NotificationType.SUCCESS);
+            n.setAnimationType(AnimationType.POPUP);
+            n.showAndDismiss(Duration.seconds(3));
             deptTableView.getSelectionModel().selectNext();
             return;
         }
-        
         JFXButton cancelBtn = new JFXButton("Cancel");
         oldDept = deptTableView.getSelectionModel().getSelectedItem();
         deptTextField.setText(oldDept.getDepartmentName());
@@ -148,5 +174,26 @@ public class DepartmentsController implements Initializable {
         });
         box.getChildren().add(3, cancelBtn);
         box.setSpacing(10);
+    }
+
+    private void search(KeyEvent e) {
+        FilteredList<Department> filter;
+        filter = new FilteredList<>(deptTableView.getItems(), p -> true);
+        searchTextField.textProperty().addListener((ob, o, n) -> {
+            filter.setPredicate(d -> {
+                if (n.isEmpty() || n == null) {
+                    return true;
+                } else if (String.valueOf(d.getDepartmentID()).toLowerCase().contains(n.toLowerCase())) {
+                    return true;
+                } else if (d.getDepartmentName().toLowerCase().contains(n.toLowerCase())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            SortedList sort = new SortedList(filter);
+            sort.comparatorProperty().bind(deptTableView.comparatorProperty());
+            deptTableView.setItems(sort);
+        });
     }
 }

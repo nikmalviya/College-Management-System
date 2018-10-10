@@ -11,15 +11,12 @@ import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -75,8 +72,8 @@ public class DashBoardController {
 
     public void initialize() throws IOException, SQLException {
         dashboardLabel.setCursor(Cursor.HAND);
-        dashboardLabel.setOnMouseClicked(e->{
-        new RubberBand(dashboardLabel).play();    
+        dashboardLabel.setOnMouseClicked(e -> {
+            new RubberBand(dashboardLabel).play();
         });
         ham = new HamburgerNextArrowBasicTransition(sidemenuToggle);
         ham.setRate(-1);
@@ -106,8 +103,9 @@ public class DashBoardController {
         });
         openView(Windows.HOME);
         setAnimation();
-        new FadeInLeft(sidePane).setDelay(Duration.seconds(0.3)).play();
-        new FadeInDown(headerPane).setDelay(Duration.seconds(0.3)).play();
+
+        new FadeInLeft(sidePane).setDelay(Duration.seconds(0.5)).play();
+        new FadeInDown(headerPane).setDelay(Duration.seconds(0.5)).play();
         new RubberBand(dashboardLabel).setDelay(Duration.seconds(1.5)).play();
     }
 
@@ -137,7 +135,7 @@ public class DashBoardController {
                 break;
             case MARKS:
                 location = "/project/cms/exammarks/examMarks.fxml";
-                break;    
+                break;
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource(location));
         AnchorPane node = null;
@@ -152,9 +150,9 @@ public class DashBoardController {
         AnchorPane.setRightAnchor(node, 0d);
         contentNode.getChildren().clear();
         contentNode.getChildren().add(node);
-        if(type != Windows.HOME)
-        new JackInTheBox(node).play();
-        else{
+        if (type != Windows.HOME) {
+            new JackInTheBox(node).play();
+        } else {
             new FadeIn(node).play();
         }
     }

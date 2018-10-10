@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -44,8 +45,15 @@
                      <top>
                         <HBox alignment="CENTER" prefHeight="44.0" prefWidth="944.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="searchTextField" prefHeight="31.0" prefWidth="608.0" />
-                              <JFXButton fx:id="refreshButton" text="  " />
+                              <TextField fx:id="searchTextField" prefHeight="31.0" prefWidth="608.0" promptText="Search" />
+                              <JFXButton fx:id="refreshButton" contentDisplay="GRAPHIC_ONLY" styleClass="refreshButton" text="  ">
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/refresh.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></JFXButton>
                            </children>
                         </HBox>
                      </top>

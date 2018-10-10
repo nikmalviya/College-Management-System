@@ -30,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import project.cms.classes.courses.CourseRepository;
 import project.cms.classes.exam.Exam;
 import project.cms.classes.exam.Exam.ExamSubject;
@@ -38,6 +39,9 @@ import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.subject.Subject;
 import project.cms.classes.subject.SubjectRepository;
 import project.cms.students.addstudent.AddStudentController;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -82,7 +86,7 @@ public class AddExamController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         isUpdateMode.addListener((ob, o, n) -> {
             if (n) {
                 titleLabel.setText("Update Exam");
@@ -152,15 +156,21 @@ public class AddExamController implements Initializable {
         String sem = semCBX.getSelectionModel().getSelectedItem();
         Exam ex = new Exam(course, exam, sem);
         ex.getSubjects().addAll(subjects);
+        String str = "";
         try {
             if (isUpdateMode.get()) {
+                str="Updated";
                 ExamRepository.getExamRepository().updateExam(old, ex);
             } else {
+                str="Added";
                 ExamRepository.getExamRepository().addNewExam(ex);
             }
         } catch (SQLException ex1) {
             System.out.println("Cannot add Exam" + ex1.getMessage());
         }
+        TrayNotification n = new TrayNotification("Success", "Faculty "+str+" SuccessFully", NotificationType.SUCCESS);
+                        n.setAnimationType(AnimationType.POPUP);
+                        n.showAndDismiss(Duration.seconds(3));
         closeWindow(e);
     }
 

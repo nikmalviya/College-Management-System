@@ -39,21 +39,25 @@ public class ViewController implements Initializable {
     @FXML
     private JFXButton okButton;
     @FXML
-    private Label id;    
+    private Label id;
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         okButton.setOnMouseClicked(this::closeWindow);
-    }    
-    private void closeWindow(MouseEvent e){
-        Stage s = (Stage)okButton.getScene().getWindow();
+    }
+
+    private void closeWindow(MouseEvent e) {
+        Stage s = (Stage) okButton.getScene().getWindow();
         s.close();
     }
-    public void initFacultyDetails(Faculty faculty){
+
+    public void initFacultyDetails(Faculty faculty) {
         fullName.setText(faculty.getFacultyName());
         id.setText(String.valueOf(faculty.getFacultyID()));
         phoneNumber.setText(faculty.getPhoneNumber());
@@ -62,7 +66,7 @@ public class ViewController implements Initializable {
         address.setText(faculty.getAddress());
         birthDate.setText(faculty.getBirthdate().toString());
         gender.setText(faculty.getGender());
-        
+
     }
-    
+
 }

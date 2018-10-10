@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -27,11 +26,16 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import project.cms.classes.courses.CourseRepository;
 import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.student.Student;
 import project.cms.classes.student.StudentRepository;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
+
 /**
  * FXML Controller class
  *
@@ -102,15 +106,6 @@ public class AddStudentController implements Initializable {
         addstudentbtn.setOnAction(this::addStudentToDatabase);
         cancelbtn.setOnAction(this::closeWindow);
         course.setOnAction(this::loadSemetsers);
-        Notifications not = Notifications.create();
-        not.position(Pos.BASELINE_RIGHT);
-        not.text("Hello World");
-        not.title("Nikhil");
-        not.showConfirm();
-        
-//        Notification n = NotificationBuilder.create().build();
-//        Notification.Notifier not  = NotifierBuilder.create().build();
-//        not.notify(n);
     }
 
     private void loadSemetsers(ActionEvent e) {
@@ -145,19 +140,23 @@ public class AddStudentController implements Initializable {
                 .setCourse(course.getValue())
                 .setSemester(semester.getValue())
                 .build();
+        String str="";
         try {
             if (isUpdateMode) {
+                str="Updated";
                 student.setId(s.getId());
                 StudentRepository.getStudentRepository().updateStudent(s, student);
                 isUpdateMode = false;
             } else {
+                str="Added";
                 StudentRepository.getStudentRepository().addNewStudent(student);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        Alert studentAddedAlert = new Alert(Alert.AlertType.INFORMATION, "Student Added SuccessFully");
-        studentAddedAlert.show();
+        TrayNotification n = new TrayNotification("Success", "Student "+str+" SuccessFully", NotificationType.SUCCESS);
+                         n.setAnimationType(AnimationType.POPUP);
+                         n.showAndDismiss(Duration.seconds(3));
         Stage st = (Stage) (cancelbtn.getScene().getWindow());
         st.close();
     }

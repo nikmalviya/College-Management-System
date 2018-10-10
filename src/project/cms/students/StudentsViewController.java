@@ -11,8 +11,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,23 +28,29 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import project.cms.classes.courses.CourseRepository;
+import project.cms.classes.departments.Department;
 import project.cms.classes.semester.SemesterRepository;
 import project.cms.classes.student.Student;
 import project.cms.classes.student.StudentRepository;
 import project.cms.students.addstudent.AddStudentController;
 import project.cms.students.view.ViewController;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
  *
  * @author programmer
  */
-public class StudentsViewController implements Initializable{
-    
+public class StudentsViewController implements Initializable {
+
     @FXML
     private AnchorPane rootNode;
     @FXML
@@ -94,8 +103,17 @@ public class StudentsViewController implements Initializable{
     private TableColumn<Student, String> stateColumn;
     private static StudentRepository students;
     private AnchorPane temp;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        searchTextField.setOnKeyReleased(this::search);
+        refreshButton.setOnMouseClicked(e -> {
+            try {
+                StudentRepository.getStudentRepository().refresh();
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         updateButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
         viewButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
         deleteButton.disableProperty().bind(studentsTableView.getSelectionModel().selectedItemProperty().isNull());
@@ -105,7 +123,7 @@ public class StudentsViewController implements Initializable{
         } catch (SQLException ex) {
             Logger.getLogger(StudentsViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         initTableCellValueFactory();
         addStudentButton.setOnMouseClicked(this::openAddStudentWindow);
         deleteButton.setOnMouseClicked(this::deleteStudent);
@@ -119,9 +137,9 @@ public class StudentsViewController implements Initializable{
             }
         });
         courseComboBox.setOnAction(this::loadSemesters);
-        
+
     }
-    
+
     public void loadSemesters(ActionEvent e) {
         String selected = courseComboBox.getSelectionModel().getSelectedItem();
         try {
@@ -132,7 +150,7 @@ public class StudentsViewController implements Initializable{
             Logger.getLogger(AddStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void openAddStudentWindow(MouseEvent e) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/addstudent/addStudent.fxml"));
         AnchorPane node = null;
@@ -142,11 +160,11 @@ public class StudentsViewController implements Initializable{
             System.out.println("Cannot Load add Student View");
         }
         Stage stage = new Stage();
-        stage.setScene(new Scene(node));        
+        stage.setScene(new Scene(node));
         stage.show();
         new FadeInDown(node).play();
     }
-    
+
     private void initTableCellValueFactory() {
         studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -162,7 +180,7 @@ public class StudentsViewController implements Initializable{
         cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
     }
-    
+
     private void deleteStudent(MouseEvent e) {
         Student s = studentsTableView.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Dou you Really Want To Delete?");
@@ -172,14 +190,17 @@ public class StudentsViewController implements Initializable{
             students.getStudents().remove(s);
             try {
                 students.deleteStudent(s);
+                TrayNotification n = new TrayNotification("Success", "Student Deleted SuccessFully", NotificationType.SUCCESS);
+                n.setAnimationType(AnimationType.POPUP);
+                n.showAndDismiss(Duration.seconds(3));
             } catch (SQLException ex) {
                 System.out.println("Cannot Delete this Student");
             }
         }
     }
-    
+
     private void showViewWindow(MouseEvent e) {
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/view/view.fxml"));
         AnchorPane pane = null;
         try {
@@ -193,7 +214,7 @@ public class StudentsViewController implements Initializable{
         stage.setScene(new Scene(pane));
         stage.show();
     }
-    
+
     private void showUpdateWindow(MouseEvent e) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/cms/students/addstudent/addStudent.fxml"));
         AnchorPane root = null;
@@ -207,5 +228,28 @@ public class StudentsViewController implements Initializable{
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.showAndWait();
+    }
+
+    private void search(KeyEvent e) {
+        FilteredList<Student> filter;
+        filter = new FilteredList<>(studentsTableView.getItems(), p -> true);
+        searchTextField.textProperty().addListener((ob, o, n) -> {
+            filter.setPredicate(s -> {
+                if (n.isEmpty() || n == null) {
+                    return true;
+                } else if (String.valueOf(s.getId()).toLowerCase().contains(n.toLowerCase())) {
+                    return true;
+                } else if (s.getFullName().toLowerCase().contains(n.toLowerCase())) {
+                    return true;
+                } else if (s.getEmail().toLowerCase().contains(n.toLowerCase())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            SortedList sort = new SortedList(filter);
+            sort.comparatorProperty().bind(studentsTableView.comparatorProperty());
+            studentsTableView.setItems(sort);
+        });
     }
 }

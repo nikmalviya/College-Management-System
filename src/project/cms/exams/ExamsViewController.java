@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,12 +20,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import project.cms.classes.departments.Department;
 import project.cms.classes.exam.Exam;
 import project.cms.classes.exam.ExamRepository;
 import project.cms.faculties.FacultiesController;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 public class ExamsViewController implements Initializable {
 
@@ -40,19 +48,19 @@ public class ExamsViewController implements Initializable {
     @FXML
     private TableView<Exam> examTableView;
     @FXML
-    private TableColumn<Exam,String> examIDCol;
+    private TableColumn<Exam, String> examIDCol;
     @FXML
-    private TableColumn<Exam,String> examTitle;
+    private TableColumn<Exam, String> examTitle;
     @FXML
-    private TableColumn<Exam,String> courseCol;
+    private TableColumn<Exam, String> courseCol;
     @FXML
-    private TableColumn<Exam,String> semesterCol;
+    private TableColumn<Exam, String> semesterCol;
     @FXML
-    private TableColumn<Exam,String> dateCol;
+    private TableColumn<Exam, String> dateCol;
     @FXML
-    private TableColumn<Exam,String> subjectNameCol;
+    private TableColumn<Exam, String> subjectNameCol;
     @FXML
-    private TableColumn<Exam,String> maxMarksCol;
+    private TableColumn<Exam, String> maxMarksCol;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -73,7 +81,7 @@ public class ExamsViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(FacultiesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+    }
 
     private void initTableCellValueFactory() {
         examIDCol.setCellValueFactory(new PropertyValueFactory<>("examID"));
@@ -84,7 +92,8 @@ public class ExamsViewController implements Initializable {
         maxMarksCol.setCellValueFactory(new PropertyValueFactory<>("maxMarks"));
         subjectNameCol.setCellValueFactory(new PropertyValueFactory<>("subjectNames"));
     }
-    private void openAddExamWindow(MouseEvent e){
+
+    private void openAddExamWindow(MouseEvent e) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addExam.fxml"));
         AnchorPane node = null;
         try {
@@ -97,24 +106,27 @@ public class ExamsViewController implements Initializable {
         stage.show();
         new ZoomIn(node).play();
     }
-    private void deleteExam(MouseEvent e){
-        Alert al = new Alert(Alert.AlertType.CONFIRMATION,"Do you Want to Delete");
+
+    private void deleteExam(MouseEvent e) {
+        Alert al = new Alert(Alert.AlertType.CONFIRMATION, "Do you Want to Delete");
         al.showAndWait();
-        if(al.getResult()==ButtonType.OK){
+        if (al.getResult() == ButtonType.OK) {
             Exam exam = examTableView.getSelectionModel().getSelectedItem();
-        try {
-            ExamRepository.getExamRepository().deleteExam(exam);
-        } catch (SQLException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Cannot Delete Exam");
-            alert.show();
-            System.out.println(ex.getMessage());
-            return;
+            try {
+                ExamRepository.getExamRepository().deleteExam(exam);
+            } catch (SQLException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot Delete Exam");
+                alert.show();
+                System.out.println(ex.getMessage());
+                return;
+            }
+           TrayNotification n = new TrayNotification("Success", "Exam Deleted SuccessFully", NotificationType.SUCCESS);
+                        n.setAnimationType(AnimationType.POPUP);
+                        n.showAndDismiss(Duration.seconds(3));
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Exam Deleted SuccessFully..");
-        alert.show();
-        }        
     }
-    private void showUpdateWindow(MouseEvent e){
+
+    private void showUpdateWindow(MouseEvent e) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addExam.fxml"));
         AnchorPane node = null;
         try {
@@ -130,11 +142,34 @@ public class ExamsViewController implements Initializable {
         stage.showAndWait();
         examTableView.getSelectionModel().selectNext();
     }
-    private void refresh(MouseEvent e){
+
+    private void refresh(MouseEvent e) {
         try {
             ExamRepository.getExamRepository().refresh();
         } catch (SQLException ex) {
             Logger.getLogger(ExamsViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    private void search(KeyEvent e){
+        FilteredList<Exam> filter;
+        filter = new FilteredList<>(examTableView.getItems(), p -> true);
+        searchTextField.textProperty().addListener((ob,o,n) ->{
+            filter.setPredicate(d->{
+                if( n.isEmpty()||n==null)
+                    return true;
+                else if( String.valueOf(d.getExamID()).toLowerCase().contains(n.toLowerCase()))
+                    return true;
+                else if (d.getExamTitle().toLowerCase().contains(n.toLowerCase()))
+                    return true;
+                else if (d.getSubjectNames().toLowerCase().contains(n.toLowerCase()))
+                    return true;
+                 else if (d.getCourse().toLowerCase().contains(n.toLowerCase()))
+                    return true;
+                else return false;
+            });
+            SortedList sort = new SortedList(filter);
+            sort.comparatorProperty().bind(examTableView.comparatorProperty());
+            examTableView.setItems(sort);
+        });
     }
 }

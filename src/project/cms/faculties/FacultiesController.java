@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,11 +24,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import project.cms.classes.faculty.Faculty;
 import project.cms.classes.faculty.FacultyRepository;
+import project.cms.classes.student.Student;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -52,31 +60,40 @@ public class FacultiesController implements Initializable {
     @FXML
     private TableView<Faculty> facultyTableView;
     @FXML
-    private TableColumn<Faculty,String> facultyIDCol;
+    private TableColumn<Faculty, String> facultyIDCol;
     @FXML
-    private TableColumn<Faculty,String> facultyNameCol;
+    private TableColumn<Faculty, String> facultyNameCol;
     @FXML
-    private TableColumn<Faculty,String> deptNameCol;
+    private TableColumn<Faculty, String> deptNameCol;
     @FXML
-    private TableColumn<Faculty,String> phoneNoCol;
+    private TableColumn<Faculty, String> phoneNoCol;
     @FXML
-    private TableColumn<Faculty,String> emailCol;
+    private TableColumn<Faculty, String> emailCol;
     @FXML
-    private TableColumn<Faculty,String> genderCol;
+    private TableColumn<Faculty, String> genderCol;
     @FXML
-    private TableColumn<Faculty,String> addressCol;
+    private TableColumn<Faculty, String> addressCol;
     @FXML
-    private TableColumn<Faculty,String> birthdateCol;
+    private TableColumn<Faculty, String> birthdateCol;
     @FXML
     private JFXButton viewButton;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        searchTextField.setOnKeyReleased(this::search);
+        refreshButton.setOnMouseClicked(e -> {
+            try {
+                FacultyRepository.getFacultyRepository().refresh();
+            } catch (SQLException ex) {
+                Logger.getLogger(FacultiesController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         updateButton.disableProperty().bind(facultyTableView.getSelectionModel().selectedItemProperty().isNull());
         viewButton.disableProperty().bind(facultyTableView.getSelectionModel().selectedItemProperty().isNull());
         deleteButton.disableProperty().bind(facultyTableView.getSelectionModel().selectedItemProperty().isNull());
@@ -91,12 +108,12 @@ public class FacultiesController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(FacultiesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        facultyTableView.setOnMouseClicked(e->{
-            if (e.getClickCount()==2) {
+        facultyTableView.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
                 showViewWindow(e);
             }
         });
-    }    
+    }
 
     private void initTableCellValueFactory() {
         facultyIDCol.setCellValueFactory(new PropertyValueFactory<>("facultyID"));
@@ -108,7 +125,8 @@ public class FacultiesController implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         birthdateCol.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
     }
-    public void showViewWindow(MouseEvent e){
+
+    public void showViewWindow(MouseEvent e) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("view.fxml"));
         AnchorPane root = null;
         try {
@@ -122,9 +140,10 @@ public class FacultiesController implements Initializable {
         stage.setScene(new Scene(root));
         stage.showAndWait();
     }
-    public void openAddFacultyWindow(MouseEvent e){
+
+    public void openAddFacultyWindow(MouseEvent e) {
         Stage stage = new Stage();
-        AnchorPane root=null;
+        AnchorPane root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("addfaculty.fxml"));
         } catch (IOException ex) {
@@ -133,36 +152,65 @@ public class FacultiesController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
-    public void deleteFaculty(MouseEvent e){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want to Delete ?");
+
+    public void deleteFaculty(MouseEvent e) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do You Want to Delete ?");
         alert.showAndWait();
-        if (alert.getResult()==ButtonType.OK) {
+        if (alert.getResult() == ButtonType.OK) {
             try {
                 FacultyRepository.getFacultyRepository().deleteFaculty(facultyTableView.getSelectionModel().getSelectedItem());
             } catch (SQLException ex) {
                 System.out.println("Cannot Delete Faculty..");
+                TrayNotification n = new TrayNotification("Error", "Faculty Cannot be Deleted", NotificationType.ERROR);
+                        n.setAnimationType(AnimationType.POPUP);
+                        n.showAndDismiss(Duration.seconds(3));
                 Logger.getLogger(FacultiesController.class.getName()).log(Level.SEVERE, null, ex);
+                return;
             }
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.setContentText("Faculty Deleted Successfully...");
-            alert.show();
+            TrayNotification n = new TrayNotification("Success", "Faculty Deleted SuccessFully", NotificationType.SUCCESS);
+            n.setAnimationType(AnimationType.POPUP);
+            n.showAndDismiss(Duration.seconds(3));
         }
     }
-    public void showUpdateWindow(MouseEvent e){
+
+    public void showUpdateWindow(MouseEvent e) {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addfaculty.fxml"));
-        AnchorPane root=null;
+        AnchorPane root = null;
         try {
             root = loader.load();
         } catch (IOException ex) {
             Logger.getLogger(FacultiesController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        AddFacultyController ac= loader.getController();
+        AddFacultyController ac = loader.getController();
         ac.setOldFaculty(facultyTableView.getSelectionModel().getSelectedItem());
         ac.setUpdateMode(true);
         ac.initOldValues();
         stage.setScene(new Scene(root));
         stage.showAndWait();
         facultyTableView.getSelectionModel().selectNext();
+    }
+
+    private void search(KeyEvent e) {
+        FilteredList<Faculty> filter;
+        filter = new FilteredList<>(facultyTableView.getItems(), p -> true);
+        searchTextField.textProperty().addListener((ob, o, n) -> {
+            filter.setPredicate(s -> {
+                if (n.isEmpty() || n == null) {
+                    return true;
+                } else if (String.valueOf(s.getFacultyID()).toLowerCase().contains(n.toLowerCase())) {
+                    return true;
+                } else if (s.getFacultyName().toLowerCase().contains(n.toLowerCase())) {
+                    return true;
+                } else if (s.getEmail().toLowerCase().contains(n.toLowerCase())) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            SortedList sort = new SortedList(filter);
+            sort.comparatorProperty().bind(facultyTableView.comparatorProperty());
+            facultyTableView.setItems(sort);
+        });
     }
 }
